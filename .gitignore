@@ -1,6 +1,12 @@
 # Compiled class file
 *.class
 
+#autosave file pt.2
+*~
+
+#xD
+*.aaron
+
 # Log file
 *.log
 
