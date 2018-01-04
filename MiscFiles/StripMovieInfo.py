@@ -35,6 +35,8 @@ def rewrite(torewrite, fname):
     f.write(torewrite)
     f.close()
 
+
+## now gets lead actors but i was too lazy to change the names
 def getdirector(movie):
     try:
         url = getlink(movie)
@@ -78,8 +80,8 @@ def addDirectors():
     rewrite(movielist, 'movies.csv')
 
     movielist = movielist.split("\n")
-    for i in xrange(len(movielist)):
-        movielist[i] = movielist[i].split(",")
+    for i in xrange(360, 400):
+        movielist[i] = movielist[i].split("^")
         director = getdirector(movielist[i][0].replace(" ", "+"))
         movielist[i] += [director]
         movielist[i] = "^".join(movielist[i])
@@ -97,7 +99,21 @@ def addDirectors():
     except:
         lmao = 1
 
-
+def fixformat():
+    f = open('movies.csv', 'rU')
+    s = f.read()
+    f.close()
+    rewrite(s, 'movies.csv')
+    s = s.replace(",", "^")
+    s = s.split("\n")
+    for i in xrange(len(s)):
+        if len(s[i].split("^")) > 3:
+            s[i] = "LMAOOOOOOO"
+    s = "\n".join(s)
+    f = open('moviest.csv', 'w')
+    f.write(s)
+    f.close()
+    print len(s.split("\n"))
 
 ##so far movies.csv is in format:
 ##movieName,year,director
