@@ -80,7 +80,7 @@ def addDirectors():
     rewrite(movielist, 'movies.csv')
 
     movielist = movielist.split("\n")
-    for i in xrange(360, 400):
+    for i in xrange(len(movielist)):
         movielist[i] = movielist[i].split("^")
         director = getdirector(movielist[i][0].replace(" ", "+"))
         movielist[i] += [director]
