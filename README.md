@@ -10,8 +10,8 @@
 ## Instructions
 1. Compile and run Woo.java
 2. Follow the on-screen instructions for each step of the rental process
-..* Enter your credit card information or get a new credit card
-..* Search for a movie using key terms, genre, release year, etc.
-..* Rent the movie you want
-..* Later, return the movies you have out (you may be charged a late fee if you don't return it on time)
+  * Enter your credit card information or get a new credit card
+  * Search for a movie using key terms, genre, release year, etc.
+  * Rent the movie you want
+  * Later, return the movies you have out (you may be charged a late fee if you don't return it on time)
 
