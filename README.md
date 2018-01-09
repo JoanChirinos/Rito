@@ -1,4 +1,7 @@
-# Team Rito, Period 8
+# Rito, Period 8
+<i> Xiaojie (Aaron) Li
+Joan Chirinos
+Johnny Wong </i>
 
 ## APCS1 Final Project: Command Line Based Movie Rental Kiosk
 ### Project Description
