@@ -69,7 +69,15 @@ def getlink(movie):
         l = 1
     return "none"
 
-
+def test():
+    f = [1, 2, 3, 4]
+    fl = ""
+    try:
+        for i in range(5):
+            fl += f[i]
+    except:
+        lmao = 1
+    print fl
 ##now change to addActors:
   ##...,director,[actor1,actor2,...]
 def addDirectors():
@@ -79,15 +87,17 @@ def addDirectors():
     f.close()
     rewrite(movielist, 'movies.csv')
 
-    movielist = movielist.split("\n")
+    movielist = movielist.split("\n")[900:]
     for i in xrange(len(movielist)):
         movielist[i] = movielist[i].split("^")
         director = getdirector(movielist[i][0].replace(" ", "+"))
         movielist[i] += [director]
         movielist[i] = "^".join(movielist[i])
+        if i+1 % 25 == 0:
+            print i
     movielist = "\n".join(movielist)
 
-    f = open('test', 'w')
+    f = open('test2', 'w')
     f.write(movielist)
     f.close()
     end = time.time()
@@ -95,7 +105,7 @@ def addDirectors():
         minutes = (int((end - start)/60))
         seconds = end - start - (minutes * 60)
         print "Time taken: " + str(minutes) + ":" + str(round(seconds, 3))
-        print "In seconds: " + str(round(seconds, 3))
+        print "In seconds: " + str(seconds)
     except:
         lmao = 1
 
@@ -107,7 +117,7 @@ def fixformat():
     s = s.replace(",", "^")
     s = s.split("\n")
     for i in xrange(len(s)):
-        if len(s[i].split("^")) > 3:
+        if len(s[i].split("^")) > 4 or s[i].split("^")[len(s[i].split("^")) - 1] == "unknown":
             s[i] = "LMAOOOOOOO"
     s = "\n".join(s)
     f = open('moviest.csv', 'w')
