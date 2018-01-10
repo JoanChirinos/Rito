@@ -12,13 +12,13 @@ Aaron Li, Johnny Wong, Joan Chirinos
 
 import jutils.*;
 
-public class CreditCard {
+public class JCreditCard {
 
     private String _ccnum;
     private String _pin;
     private final String ALPHABET = "abcdefghijklmnopqrstuvwxyz";
 
-    public CreditCard() {
+    public JCreditCard() {
 
 	//set creditcard number
 	for (int i = 0; i < 9; i++)
@@ -49,7 +49,7 @@ public class CreditCard {
     }
 
     /*
-    public CreditCard(String cc, String pin) {
+    public JCreditCard(String cc, String pin) {
 
 	
 
