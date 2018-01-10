@@ -10,6 +10,7 @@ Aaron Li, Johnny Wong, Joan Chirinos
 ------------------------------------
 */
 
+import jutils.*;
 
 /**********************************************************************
  <notes and comments>
@@ -17,13 +18,19 @@ Aaron Li, Johnny Wong, Joan Chirinos
 
 public class Kiosk {
     // inst vars
-    CreditCard cc;
-    String user;
+    private CreditCard cc;
+    private String user;
 
     // constructor
     public Kiosk(){
-	// assign cc to user inputted ccNum via Keyboard.java?
+	// assign cc to user inputted ccNum via Keyboard.java
 	// assign user to user's inputted name
+	System.out.println("Please enter your name: ");
+	user = Keyboard.readString();
+	System.out.println("Hi " + user + " ... Please enter your credit card number: ");
+	int ccNum = Keyboard.readInt();
+	// if ccNum in cc database, cc.num = ccNum;
+	// if not, ask if they want to make a new cc
     }
 
     public static String strArray(String [] x) {
