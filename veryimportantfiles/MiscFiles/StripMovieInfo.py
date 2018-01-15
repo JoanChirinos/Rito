@@ -9,12 +9,12 @@
 ## ------------------------------------
 
 ##FORMAT:
-## movieName^releaseYear^actor1,actor2,...^...
+## movieName^releaseYear^actor1,actor2,...^genre1,genre2,...
 
 from bs4 import BeautifulSoup
 from urllib2 import urlopen
 import urllib
-import time
+import time  
 
 def makeUrlList(url):
     names = []
@@ -36,7 +36,7 @@ def rewrite(torewrite, fname):
     f.close()
 
 
-## now gets lead actors but i was too lazy to change the names
+## now gets genres but i was too lazy to change the names
 def getdirector(movie):
     try:
         url = getlink(movie)
@@ -44,13 +44,12 @@ def getdirector(movie):
             return "unknown"
         soup = make_soup(url)
         soup = str(soup)
-        soup = soup.split('Stars:')[1]
-        soup = soup.split("</div>")[0]
-        soup = soup.split('itemprop="name">')[1:]
+        soup = soup.split('itemprop="genre">')[1:]
         for i in range(len(soup)):
             soup[i] = soup[i].split("</span>")[0]
+        soup = soup[:-1]
         soup = str(soup).replace("'", "").replace('"', "")
-        return soup[1:len(soup) - 1]
+        return soup[1:-1]
     except:
         x = 1
     return "unknown"
@@ -87,7 +86,7 @@ def addDirectors():
     f.close()
     rewrite(movielist, 'movies.csv')
 
-    movielist = movielist.split("\n")[900:]
+    movielist = movielist.split("\n")[1100:]
     for i in xrange(len(movielist)):
         movielist[i] = movielist[i].split("^")
         director = getdirector(movielist[i][0].replace(" ", "+"))
@@ -105,7 +104,7 @@ def addDirectors():
         minutes = (int((end - start)/60))
         seconds = end - start - (minutes * 60)
         print "Time taken: " + str(minutes) + ":" + str(round(seconds, 3))
-        print "In seconds: " + str(seconds)
+        print "In seconds: " + str(round((seconds + (minutes * 60)), 3))
     except:
         lmao = 1
 
@@ -124,6 +123,7 @@ def fixformat():
     f.write(s)
     f.close()
     print len(s.split("\n"))
+    
 
 ##so far movies.csv is in format:
 ##movieName,year,director
