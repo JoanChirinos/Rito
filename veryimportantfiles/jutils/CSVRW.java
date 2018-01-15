@@ -1,11 +1,11 @@
 package jutils;
 
 /*
-       __                     ________    _      _                 
+       __                     ________    _      _
       / /___  ____ _____     / ____/ /_  (_)____(_)___  ____  _____
  __  / / __ \/ __ `/ __ \   / /   / __ \/ / ___/ / __ \/ __ \/ ___/
-/ /_/ / /_/ / /_/ / / / /  / /___/ / / / / /  / / / / / /_/ (__  ) 
-\____/\____/\__,_/_/ /_/   \____/_/ /_/_/_/  /_/_/ /_/\____/____/  
+/ /_/ / /_/ / /_/ / / / /  / /___/ / / / / /  / / / / / /_/ (__  )
+\____/\____/\__,_/_/ /_/   \____/_/ /_/_/_/  /_/_/ /_/\____/____/
 
 ~Joan Chirinos, December 25, 2017
 */
@@ -163,11 +163,11 @@ public class CSVRW {
 	}
 	return fileName;
     }//end write
-    
+
     /******************************************************
      * For addRow methods, all other rows get pushed down *
      ******************************************************/
-    
+
     //adds a row of empty strings at the end of _fileContents
     //-->Returns index of addition
     public int addRow() {
@@ -196,7 +196,7 @@ public class CSVRW {
     public int addColumn() {
 	return addColumn(_fileContents.get(0).size());
     }//end addColumn()
-    
+
     //adds a blank string at index index of each row
     //--Returns index of addition
     public int addColumn(int index) {
@@ -210,7 +210,7 @@ public class CSVRW {
     /**************************************************************
      * For all removeRow methods, all other rows get pushed to up *
      **************************************************************/
-    
+
     //removes row from end of _fileContents
     //-->Returns removed row
     public ArrayList<String> removeRow() {
@@ -243,13 +243,13 @@ public class CSVRW {
 	if (index < 0 || index > _fileContents.get(0).size())
 	    throw new IllegalArgumentException("\n\tInvalid index");
 	ArrayList<String> oldColumn = new ArrayList<String>();
-	for (int r = 0; r < _fileContents.size(); r++) {	    
+	for (int r = 0; r < _fileContents.size(); r++) {
 	    oldColumn.add(_fileContents.get(r).get(index));
 	    _fileContents.get(r).remove(index);
 	}
 	return oldColumn;
     }//end removeColumn(int)
-    
+
     //sets element c of row r to newVal
     //-->Returns the deleted value
     public String set(int r, int c, String newVal) {
@@ -265,5 +265,5 @@ public class CSVRW {
     public String delete(int r, int c) {
 	return set(r, c, "");
     }//end delete
-    
+
 }//end class

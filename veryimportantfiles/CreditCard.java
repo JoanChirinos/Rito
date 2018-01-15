@@ -39,13 +39,26 @@ public class CreditCard {
      public CreditCard () {
           cardNum = genNum();
           cardPin = genPin();
-          encrypt(cardPin);
+          ePin = encrypt(cardPin);
+
+          CSVRW check = new CSVRW("Numbers.csv");
+          check.set(check.size() - 1, 0, Long.toString(cardNum));
+          check.set(check.size() - 1, 1, Long.toString(ePin));
+          check.addRow();
+          check.write("Numbers.csv");
      }
 
      public CreditCard (long num, long pin) {
           cardNum = num;
           cardPin = pin;
-          encrypt(cardPin);
+          ePin = encrypt(pin);
+
+          CSVRW check = new CSVRW("Numbers.csv");
+          check.set(check.size() - 1, 0, Long.toString(cardNum));
+          check.set(check.size() - 1, 1, Long.toString(ePin));
+          check.addRow();
+          System.out.println(check.get(0,1));
+          check.write("Numbers.csv");
      }
 
 
@@ -90,22 +103,16 @@ public class CreditCard {
           } return false;
      } // end of isValidPin()
 
-     protected void encrypt (long pin) {
+     protected long encrypt (long pin) {
           ePin = (pin + 1029) * 384756;
-          CSVRW poop = new CSVRW("Numbers.csv");
-          poop.set(poop.size(), 1, Long.toString(ePin, 10));
-          poop.write("Numbers.csv");
+          return ePin;
      } // end of encrypt()
 
      protected long genNum () {
           String output = "";
           for (int i = 0; i < 12; i++) {
                output += ((int) (Math.random() * 10)) + "";
-          } CSVRW poop = new CSVRW("Numbers.csv");
-          poop.addRow();
-          poop.set(poop.size(), 0, output);
-          poop.write("Numbers.csv");
-          return (Long.valueOf(output));
+          } return (Long.valueOf(output));
      } // end of genNum()
 
      protected long genPin () {

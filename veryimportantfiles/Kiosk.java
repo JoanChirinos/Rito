@@ -79,7 +79,7 @@ public class Kiosk {
                long num = Keyboard.readLong();
                System.out.println("Now your pin: ");
                long pin = Keyboard.readLong();
-               card = new CreditCard(num, pin);
+               CreditCard card = new CreditCard(num, pin);
                if (! (card.isValidNum(card.cardNum) && card.isValidPin(card.cardPin))){
                     System.out.println("It seems you made an oops...");
                }
