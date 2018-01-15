@@ -53,12 +53,6 @@ public class CreditCard {
           cardNum = num;
           cardPin = pin;
           ePin = encrypt(pin);
-
-          CSVRW check = new CSVRW("Numbers.csv");
-          check.set(check.size() - 1, 0, Long.toString(cardNum));
-          check.set(check.size() - 1, 1, Long.toString(ePin));
-          check.addRow();
-          check.write("Numbers.csv");
      }
 
 
