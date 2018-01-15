@@ -98,7 +98,7 @@ public class Kiosk {
 
          } // end of view cart
          else {
-              System.out.println("Please make a choice from 1-4\n\n\n\n\n");
+              System.out.println("Please make a choice from 1-3\n\n\n\n\n");
               this.home(movie);
          }
 
