@@ -57,7 +57,6 @@ public class CreditCard {
           check.set(check.size() - 1, 0, Long.toString(cardNum));
           check.set(check.size() - 1, 1, Long.toString(ePin));
           check.addRow();
-          System.out.println(check.get(0,1));
           check.write("Numbers.csv");
      }
 

@@ -9,6 +9,8 @@ public class TestCreditCard {
 
           CreditCard tes = new CreditCard();
 
+          CSVRW check = new CSVRW("Numbers.csv");
+          System.out.println(check.size());
 
 
 
