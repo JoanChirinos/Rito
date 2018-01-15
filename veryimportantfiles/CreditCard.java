@@ -75,8 +75,8 @@ public class CreditCard {
 
           CSVRW check = new CSVRW("Numbers.csv");
           if (inp.length() == 12) {
-               for (int i = 0; i <= check.size() - 1; i++) {
-                    if (Long.valueOf(check.get(i, 0)) == Long.valueOf(inp)) {
+               for (int i = 0; i < check.size() - 1; i++) {
+                    if (Long.valueOf(check.get(i, 0)).equals(Long.valueOf(inp))) {
                          return true;
                     }
                } return false;
@@ -95,7 +95,7 @@ public class CreditCard {
           CSVRW check = new CSVRW("Numbers.csv");
           if (inp.length() == 4) {
                long temp = (Long.valueOf(inp) + 1029) * 384756;
-               for (int i = 0; i < check.size(); i++) {
+               for (int i = 0; i <= check.size() - 1; i++) {
                     if (Long.valueOf(check.get(i, 1)) == temp) {
                          return true;
                     }
