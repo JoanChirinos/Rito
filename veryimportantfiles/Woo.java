@@ -13,7 +13,6 @@ Aaron Li, Johnny Wong, Joan Chirinos
 /**********************************************************************
  <notes and comments>
  **********************************************************************/
-import veryimportantfiles.*;
 
 public class Woo {
     public static void main(String[] args) {

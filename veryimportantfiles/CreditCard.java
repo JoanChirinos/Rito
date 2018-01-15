@@ -29,9 +29,9 @@ public class CreditCard {
 
      // Instance Variables
 
-     private long cardNum; // stores card number
-     private long cardPin; // stores card pin
-     private long ePin; // stores encrypted pin
+     protected long cardNum; // stores card number
+     protected long cardPin; // stores card pin
+     protected long ePin; // stores encrypted pin
 
 
      // Constructors
@@ -51,7 +51,7 @@ public class CreditCard {
 
      // Methods
 
-     private boolean isValidNum (long input) {
+     protected boolean isValidNum (long input) {
           String nums = "0123456789";
           String inp = String.valueOf(input);
           for (int i = 0; i < inp.length(); i++) {
@@ -70,7 +70,7 @@ public class CreditCard {
           } return false;
      } // end of isValidNum()
 
-     private boolean isValidPin(long input) {
+     protected boolean isValidPin(long input) {
           String nums = "0123456789";
           String inp = String.valueOf(input);
           for (int i = 0; i < inp.length(); i++) {
@@ -90,14 +90,14 @@ public class CreditCard {
           } return false;
      } // end of isValidPin()
 
-     private void encrypt (long pin) {
+     protected void encrypt (long pin) {
           ePin = (pin + 1029) * 384756;
           CSVRW poop = new CSVRW("Numbers.csv");
           poop.set(poop.size(), 1, toString(ePin));
           poop.write();
      } // end of encrypt()
 
-     private long genNum () {
+     protected long genNum () {
           String output = "";
           for (int i = 0; i < 12; i++) {
                ouput += ((int) (Math.random() * 10)) + "";
@@ -108,7 +108,7 @@ public class CreditCard {
           return (Long.valueOf(output));
      } // end of genNum()
 
-     private long genPin () {
+     protected long genPin () {
           String output = "";
           for (int i = 0; i < 4; i++) {
                output += ((int) (Math.random() * 10)) + "";
