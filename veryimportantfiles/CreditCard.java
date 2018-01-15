@@ -37,8 +37,8 @@ public class CreditCard {
      // Constructors
 
      public CreditCard () {
-          cardNum = genNum;
-          cardPin = genPin;
+          cardNum = genNum();
+          cardPin = genPin();
           encrypt(cardPin);
      }
 
