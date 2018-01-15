@@ -28,13 +28,13 @@ public class Kiosk {
          cart = new ArrayList<String>();
     }
 
-    public String strArray(String [] x) {
-	// stringify inputted String array
-     return "xd";
-    }
 
     //*******************movie methods***************************
 
+    // this is Rito's default home page
+    // containing the top 5 movies!
+    // the user will often be referred back to our home page during their time renting
+    // from our collection of rad movies!
     public void home(Movie movie) {
 	// view top 5 movies
      System.out.println("Hello! Welcome to Rito's Rad Movies!\nPlease view our wicked collection of the past decade!");
@@ -43,6 +43,7 @@ public class Kiosk {
     } // end of home
 
 
+    // the user can search, rent, return movies, or view their cart
     public void decisionMaking(Movie movie) {
 
          String respStr;
@@ -87,10 +88,29 @@ public class Kiosk {
 
 
           }
-          else if (choice == 4) {
-
-          }
           // end of return rental choice
+          // view cart
+          else if (choice == 4) {
+               if (cart.size() == 0) {
+                    System.out.println("Nothing seems to be in your cart my dear...\n\n\n\n\n");
+                    this.home(movie);
+               }
+               else {
+                    this.listOrders();
+                    System.out.println("Would you like to checkout?");
+                    respStr = Keyboard.readString().toLowerCase();
+                    if (respStr.equals("yes")) {
+                         System.out.println("cool!");
+                         // <checkout stuff>
+                    }
+                    else {
+                         System.out.println("aww...\n\n\n\n\n\n");
+                         this.home(movie);
+                    }
+               }
+
+          } // end of view cart
+
 
     } // end of decisionMaking
 
@@ -112,6 +132,7 @@ public class Kiosk {
                    if (respStr.equals("yes")) {
                         cart.add(movie._movienames.get(respInt - 1));
                         System.out.println(movie._movienames.get(respInt - 1) + " has been added to your cart.");
+                        System.out.println("\n\n\n\n\n\n");
                         this.home(movie);
                    }
                    else {
@@ -137,6 +158,10 @@ public class Kiosk {
     public void listOrders() {
 	// print current orders for movies
 	// in a vertical list
+     System.out.println("\n\n\n\n\n\nYour cart:");
+     for (int itemCount = 0; itemCount < cart.size(); itemCount++) {
+          System.out.println( (itemCount + 1) + ". " + cart.get(itemCount));
+     }
     }
 
     public void receipt() {
