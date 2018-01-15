@@ -11,6 +11,7 @@ Aaron Li, Johnny Wong, Joan Chirinos
 */
 
 import jutils.*;
+import java.util.ArrayList;
 
 /**********************************************************************
  <notes and comments>
@@ -20,47 +21,47 @@ public class Kiosk {
     // inst vars
     private CreditCard card;
     private String user;
-    private String [] cart;
+    private ArrayList<String> cart;
 
     // constructor
-    public Kiosk(){
-	// assign cc to user inputted ccNum via Keyboard.java
-	// assign user to user's inputted name
-	// System.out.print("Please enter your name: ");
-	// user = Keyboard.readString();
-	// System.out.println("Hi " + user + " ... Please enter your credit card number: ");
-	// int ccNum = Keyboard.readInt();
-	// if ccNum in cc database, cc.num = ccNum;
-	// if not, ask if they want to make a new cc
+    public Kiosk() {
+         cart = new ArrayList<String>();
     }
 
-    public String strArray(String [] x) {
-	// stringify inputted String array
-     return "xd";
-    }
 
     //*******************movie methods***************************
 
-    public void home(Movie movies) {
+    // this is Rito's default home page
+    // containing the top 5 movies!
+    // the user will often be referred back to our home page during their time renting
+    // from our collection of rad movies!
+    public void home(Movie movie) {
 	// view top 5 movies
-     movies.search("");
+     System.out.println("Hello! Welcome to Rito's Rad Movies!\nPlease view our wicked collection of the past decade!");
+     movie.search("");
+     this.decisionMaking(movie);
     } // end of home
 
 
-    public void decisionMaking(Movie movies) {
-         String resp;
-         System.out.println("What would you like to do?\nYou can \n1. search\n2. rent\n3. return a previously rented movie...");
+    // the user can search, rent, return movies, or view their cart
+    public void decisionMaking(Movie movie) {
+
+         String respStr;
+         int respInt;
+         System.out.println("What would you like to do?\nYou can \n1. search\n2. rent\n3. return a previously rented movie\n4. view cart");
          int choice = Keyboard.readInt();
          // search choice
          if (choice == 1) {
               System.out.println("What would you like to search for?");
               String search1 = Keyboard.readString();
-              if (movies.search(search1)) {
+              if (movie.search(search1)) {
                    System.out.println("Do you want to rent any of these?");
-                   resp = Keyboard.readString().toLowerCase();
-                   if (resp.equals("yes")) {
-                        System.out.println("Which?");
-                        resp = Keyboard.readString().toLowerCase();
+                   respStr = Keyboard.readString().toLowerCase();
+                   if (respStr.equals("yes")) {
+                        // this is not fully functional yet
+                        // rent works for the top 5 movies only...
+                        this.rent(movie);
+
                    }
               }
          }
@@ -68,9 +69,10 @@ public class Kiosk {
 
           // rent choice
           else if (choice == 2) {
-               System.out.println("Which movie would you like to rent?");
-               resp = Keyboard.readString().toLowerCase();
+               this.rent(movie);
+
           }
+
           // end of rent choice
 
           // return rental choice
@@ -87,9 +89,60 @@ public class Kiosk {
 
           }
           // end of return rental choice
+          // view cart
+          else if (choice == 4) {
+               if (cart.size() == 0) {
+                    System.out.println("Nothing seems to be in your cart my dear...\n\n\n\n\n");
+                    this.home(movie);
+               }
+               else {
+                    this.listOrders();
+                    System.out.println("Would you like to checkout?");
+                    respStr = Keyboard.readString().toLowerCase();
+                    if (respStr.equals("yes")) {
+                         System.out.println("cool!");
+                         // <checkout stuff>
+                    }
+                    else {
+                         System.out.println("aww...\n\n\n\n\n\n");
+                         this.home(movie);
+                    }
+               }
+
+          } // end of view cart
+
 
     } // end of decisionMaking
 
+    // user can choose out of the 5 current movies on display which to rent
+    // uses error handling in case the user does not choose a number from 1-5
+    // if the user does not decide to rent any, user moves back to home page
+    public void rent(Movie movie) {
+         boolean didNotChoose = true;
+         while (didNotChoose) {
+              System.out.println("Which movie would you like to rent?");
+              int respInt = Keyboard.readInt();
+              if (respInt < 1 || respInt > 5) {
+                   System.out.println("Sorry, but please pick a movie number from 1 to 5...");
+              }
+              else {
+                   didNotChoose = false;
+                   System.out.println("So you would like to rent " + movie._movienames.get(respInt - 1) + " ?");
+                   String respStr = Keyboard.readString().toLowerCase();
+                   if (respStr.equals("yes")) {
+                        cart.add(movie._movienames.get(respInt - 1));
+                        System.out.println(movie._movienames.get(respInt - 1) + " has been added to your cart.");
+                        System.out.println("\n\n\n\n\n\n");
+                        this.home(movie);
+                   }
+                   else {
+                        System.out.println("Bummer...\n\n\nHome Page");
+                        this.home(movie);
+
+                   }
+              }
+         }
+    }
 
 
     //***********************************************************
@@ -105,6 +158,10 @@ public class Kiosk {
     public void listOrders() {
 	// print current orders for movies
 	// in a vertical list
+     System.out.println("\n\n\n\n\n\nYour cart:");
+     for (int itemCount = 0; itemCount < cart.size(); itemCount++) {
+          System.out.println( (itemCount + 1) + ". " + cart.get(itemCount));
+     }
     }
 
     public void receipt() {
@@ -115,9 +172,8 @@ public class Kiosk {
     public void go(){
 	// start Kiosk
      Movie _movies = new Movie();
-     System.out.println("Hello! Welcome to Rito's Rad Movies!\nPlease view our wicked collection of the past decade!");
      this.home(_movies);
-     this.decisionMaking(_movies);
+
     }
 
 

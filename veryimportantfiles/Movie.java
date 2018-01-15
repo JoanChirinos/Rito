@@ -1,10 +1,10 @@
 /*
-    ____     _    __         
-   / __ \   (_)  / /_   ____ 
+    ____     _    __
+   / __ \   (_)  / /_   ____
   / /_/ /  / /  / __/  / __ \
  / _, _/  / /  / /_   / /_/ /
-/_/ |_|  /_/   \__/   \____/ 
-                             
+/_/ |_|  /_/   \__/   \____/
+
 ------------------------------------
 Aaron Li, Johnny Wong, Joan Chirinos
 ------------------------------------
@@ -15,10 +15,10 @@ import java.util.ArrayList;
 
 public class Movie {
 
-    private ArrayList<ArrayList<String>> _rawinfo;
-    private ArrayList<String> _movieinfo;
-    private ArrayList<String> _movienames;
-    private ArrayList<Integer> _searchindices;
+    protected ArrayList<ArrayList<String>> _rawinfo;
+    protected ArrayList<String> _movieinfo;
+    protected ArrayList<String> _movienames;
+    protected ArrayList<Integer> _searchindices;
 
     //initializes the instance vars and fills them with required info
     public Movie() {
@@ -59,7 +59,7 @@ public class Movie {
 	/*****************
 	 * Movie scoring *
 	 *****************/
-	
+
 	//each index in indices corresponds with the same index in _movienames,
 	//_movieinfo, and _rawinfo
         int[] scores = new int[_movienames.size()];
@@ -90,7 +90,7 @@ public class Movie {
 	/****************
 	 * Stringifying *
 	 ****************/
-		
+
 	String ret = "";
 	for (int i = 0; i < _searchindices.size(); i++) {
 	    ret += (i + 1) + ": " + _movienames.get(_searchindices.get(i));
