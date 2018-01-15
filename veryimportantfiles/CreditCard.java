@@ -17,12 +17,12 @@ Constructors:
 
 Methods:
      * encrypt -> encrpts credit card pin
-     * isValid -> checks if the input matches a valid pin number or card number
+     * isValidNum -> checks if the input matches a valid pin number or card number
      * genNum -> generates a credit card number
      * genPin -> generates a credit card pin number
      * toString -> returns credit card number and pin
 
-**********************************************************************/
+     **********************************************************************/
 import jutils.*;
 
 public class CreditCard {
@@ -115,5 +115,4 @@ public class CreditCard {
           } return (Long.valueOf(output));
      } // end of genPin()
 
-
-}
+} // end of CreditCard class
