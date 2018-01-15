@@ -23,56 +23,68 @@ Methods:
      * toString -> returns credit card number and pin
 
 **********************************************************************/
+import jutils.*;
+import java.util.ArrayList;
 
 public class CreditCard {
 
      // Instance Variables
 
-     private int cardNum; // stores card number
-     private int cardPin; // stores card pin
-     private int ePin; // stores encrypted pin
+     private long cardNum; // stores card number
+     private long cardPin; // stores card pin
+     private long ePin; // stores encrypted pin
 
+     private ArrayList<String> _data;
 
      // Constructors
 
      public CreditCard () {
-
+          cardNum = genNum;
+          cardPin = genPin;
+          encrypt(cardPin);
      }
 
-     public CreditCard (int num, int pin) {
-
+     public CreditCard (long num, long pin) {
+          CSVRW poop = new CSVRW("Numbers.csv");
+          cardNum = num;
+          cardPin = pin;
+          encrypt(cardPin);
      }
 
 
      // Methods
 
-     private boolean isValid (input) {
-
-     }
-
-     private void encrypt (pin) {
-
-     }
-
-     private int genNum () {
-          String output = "";
-          for (int i = 0; i < 12; i++) {
-               ouput += (int) (Math.random() * 10) + "";
-          } long out = Long.parseLong(output);
-          
-          return out;
-     }
-
-     private int genPin () {
-          int output = 0;
-          for (int i = 0; i < 4; i++) {
-               output +=
+     private boolean isValid (long input) {
+          String nums = "0123456789";
+          String inp = String.valueOf(input);
+          for (int i = 0; i < inp.length(); i++) {
+               if (nums.indexOf(inp.charAt(i)) < 0) {
+                    return false;
+               }
           }
 
-     }
+          if (inp.length() == 4 || inp.length() == 12) {
+               return true;
+          } return false;
+     } // end of isValid()
 
-     public String toString () {
+     private void encrypt (long pin) {
+          ePin = (pin + 1029) * 384756;
+     } // end of encrypt()
 
-     }
+     private long genNum () {
+          String output = "";
+          for (int i = 0; i < 12; i++) {
+               ouput += ((int) (Math.random() * 10)) + "";
+          } return (Long.valueOf(output));
+     } // end of genNum()
+
+     private long genPin () {
+          String output = "";
+          for (int i = 0; i < 4; i++) {
+               output += ((int) (Math.random() * 10)) + "";
+          } return (Long.valueOf(output));
+     } // end of genPin()
+
 
 }

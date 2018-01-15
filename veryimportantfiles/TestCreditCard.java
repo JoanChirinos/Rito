@@ -2,7 +2,7 @@ public class TestCreditCard {
 
     public static void main(String[] args) {
 
-	JCreditCard cc = new JCreditCard();
+	CreditCard cc = new CreditCard();
 
     }//end main
 
