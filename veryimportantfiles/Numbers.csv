@@ -1,13 +1,1 @@
-/*
-
-Aaron Li
-
-** All validated credit card numbers and pins are stored in this csv file
-
-* BELOW IS THE CORRECT FORMAT FOR EACH ELEMENT IN THIS CSV FILE *
-
-          card number^card pin encryption
-
-* Note: elements are separated by carets rather than commas
-
-*/
+0^0

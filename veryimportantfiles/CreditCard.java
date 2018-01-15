@@ -24,7 +24,6 @@ Methods:
 
 **********************************************************************/
 import jutils.*;
-import java.util.ArrayList;
 
 public class CreditCard {
 
@@ -34,7 +33,6 @@ public class CreditCard {
      private long cardPin; // stores card pin
      private long ePin; // stores encrypted pin
 
-     private ArrayList<String> _data;
 
      // Constructors
 
@@ -45,7 +43,6 @@ public class CreditCard {
      }
 
      public CreditCard (long num, long pin) {
-          CSVRW poop = new CSVRW("Numbers.csv");
           cardNum = num;
           cardPin = pin;
           encrypt(cardPin);
@@ -63,6 +60,10 @@ public class CreditCard {
                }
           }
 
+          CSVRW check = new CSVRW("Numbers.csv");
+          if (inp.length() == 4) {
+               for (long i = 0; i < check.size())
+          }
           if (inp.length() == 4 || inp.length() == 12) {
                return true;
           } return false;
@@ -70,13 +71,20 @@ public class CreditCard {
 
      private void encrypt (long pin) {
           ePin = (pin + 1029) * 384756;
+          CSVRW poop = new CSVRW("Numbers.csv");
+          poop.set(poop.size(), 1, Long.valueOf(ePin));
+          poop.write();
      } // end of encrypt()
 
      private long genNum () {
           String output = "";
           for (int i = 0; i < 12; i++) {
                ouput += ((int) (Math.random() * 10)) + "";
-          } return (Long.valueOf(output));
+          } CSVRW poop = new CSVRW("Numbers.csv");
+          poop.addRow();
+          poop.set(poop.size(), 0, Long.valueOf(output));
+          poop.write();
+          return (Long.valueOf(output));
      } // end of genNum()
 
      private long genPin () {
