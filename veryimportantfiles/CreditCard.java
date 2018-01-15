@@ -86,7 +86,7 @@ public class CreditCard {
                ouput += ((int) (Math.random() * 10)) + "";
           } CSVRW poop = new CSVRW("Numbers.csv");
           poop.addRow();
-          poop.set(poop.size(), 0, output));
+          poop.set(poop.size(), 0, output);
           poop.write();
           return (Long.valueOf(output));
      } // end of genNum()
