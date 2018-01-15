@@ -51,7 +51,7 @@ public class CreditCard {
 
      // Methods
 
-     private boolean isValid (long input) {
+     private boolean isValidNum (long input) {
           String nums = "0123456789";
           String inp = String.valueOf(input);
           for (int i = 0; i < inp.length(); i++) {
@@ -64,14 +64,31 @@ public class CreditCard {
           if (inp.length() == 12) {
                for (long i = 0; i < check.size(); i++) {
                     if (Long.valueOf(check.get(i, 0)) == Long.valueOf(inp)) {
-                         return false;
+                         return true;
                     }
-               } return true;
-          }
-          if (inp.length() == 4) {
-               return true;
+               } return false;
           } return false;
-     } // end of isValid()
+     } // end of isValidNum()
+
+     private boolean isValidPin(long input) {
+          String nums = "0123456789";
+          String inp = String.valueOf(input);
+          for (int i = 0; i < inp.length(); i++) {
+               if (nums.indexOf(inp.charAt(i)) < 0) {
+                    return false;
+               }
+          }
+
+          CSVRW check = new CSVRW("Numbers.csv");
+          if (inp.length() == 4) {
+               long temp = (Long.valueOf(inp) + 1029) * 384756;
+               for (long i = 0; i < check.size(); i++) {
+                    if (Long.valueOf(check.get(i, 1)) == temp) {
+                         return true;
+                    }
+               } return false;
+          } return false;
+     } // end of isValidPin()
 
      private void encrypt (long pin) {
           ePin = (pin + 1029) * 384756;
