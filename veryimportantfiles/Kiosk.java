@@ -55,13 +55,15 @@ public class Kiosk {
          if (choice == 1) {
               System.out.println("What would you like to search for?");
               String search1 = Keyboard.readString();
-              movies.search(search1);
-              System.out.println("Do you want to rent any of these?");
-              resp = Keyboard.readString().toLowerCase();
-              if (resp.equals("yes")) {
-                   System.out.println("Which?");
+              if (movies.search(search1)) {
+                   System.out.println("Do you want to rent any of these?");
                    resp = Keyboard.readString().toLowerCase();
+                   if (resp.equals("yes")) {
+                        System.out.println("Which?");
+                        resp = Keyboard.readString().toLowerCase();
+                   }
               }
+         }
           // end of search choice
 
           // rent choice
@@ -86,8 +88,6 @@ public class Kiosk {
           }
           // end of return rental choice
 
-
-         }
     } // end of decisionMaking
 
 
