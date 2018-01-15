@@ -20,7 +20,6 @@ import java.util.ArrayList;
 public class Kiosk {
     // inst vars
     private CreditCard card;
-    private String user;
     private ArrayList<String> cart;
 
     // constructor
@@ -48,8 +47,9 @@ public class Kiosk {
 
          String respStr;
          int respInt;
-         System.out.println("What would you like to do?\nYou can \n1. search\n2. rent\n3. return a previously rented movie\n4. view cart");
-         int choice = Keyboard.readInt();
+         int choice = 0;
+         System.out.println("What would you like to do?\nYou can \n1. search\n2. rent\n3. view cart");
+         choice = Keyboard.readInt();
          // search choice
          if (choice == 1) {
               System.out.println("What would you like to search for?");
@@ -65,54 +65,46 @@ public class Kiosk {
                    }
               }
          }
-          // end of search choice
+         // end of search choice
 
-          // rent choice
-          else if (choice == 2) {
-               this.rent(movie);
+         // rent choice
+         else if (choice == 2) {
+              this.rent(movie);
 
-          }
+         }
 
-          // end of rent choice
+         // end of rent choice
 
-          // return rental choice
-          else if (choice == 3) {
-               System.out.println("Please enter your CreditCard number to view your previously rented movies: ");
-               long num = Keyboard.readLong();
-               System.out.println("Now your pin: ");
-               long pin = Keyboard.readLong();
-               CreditCard card = new CreditCard(num, pin);
-               if (card.isValidNum(card.cardNum) && card.isValidPin(card.cardPin)) {
-                    System.out.println("SUCCESS");
-               }
+         // view cart
+         else if (choice == 3) {
+              // <previous rental situation>
 
+              if (cart.size() == 0) {
+                   System.out.println("Nothing seems to be in your cart my dear...\n\n\n\n\n");
+                   this.home(movie);
+              }
+              else {
+                   this.listOrders();
+                   System.out.println("Would you like to checkout?");
+                   respStr = Keyboard.readString().toLowerCase();
+                   if (respStr.equals("yes")) {
+                        this.checkout();
+                   }
+                   else {
+                        System.out.println("aww...\n\n\n\n\n\n");
+                        this.home(movie);
+                   }
+              }
 
-          }
-          // end of return rental choice
-          // view cart
-          else if (choice == 4) {
-               if (cart.size() == 0) {
-                    System.out.println("Nothing seems to be in your cart my dear...\n\n\n\n\n");
-                    this.home(movie);
-               }
-               else {
-                    this.listOrders();
-                    System.out.println("Would you like to checkout?");
-                    respStr = Keyboard.readString().toLowerCase();
-                    if (respStr.equals("yes")) {
-                         System.out.println("cool!");
-                         // <checkout stuff>
-                    }
-                    else {
-                         System.out.println("aww...\n\n\n\n\n\n");
-                         this.home(movie);
-                    }
-               }
-
-          } // end of view cart
+         } // end of view cart
+         else {
+              System.out.println("Please make a choice from 1-4\n\n\n\n\n");
+              this.home(movie);
+         }
 
 
     } // end of decisionMaking
+
 
     // user can choose out of the 5 current movies on display which to rent
     // uses error handling in case the user does not choose a number from 1-5
@@ -147,12 +139,83 @@ public class Kiosk {
 
     //***********************************************************
 
+    //*******************CreditCard methods************************
+
+    public boolean isValidNum (long input) {
+         String nums = "0123456789";
+         String inp = String.valueOf(input);
+         for (int i = 0; i < inp.length(); i++) {
+              if (nums.indexOf(inp.charAt(i)) < 0) {
+                   return false;
+              }
+         }
+
+         CSVRW check = new CSVRW("Numbers.csv");
+         if (inp.length() == 12) {
+              for (int i = 0; i < check.size() - 1; i++) {
+                   if (Long.valueOf(check.get(i, 0)).equals(Long.valueOf(inp))) {
+                        return true;
+                   }
+              } return false;
+         } return false;
+    } // end of isValidNum()
+
+    public boolean isValidPin(long input) {
+         String nums = "0123456789";
+         String inp = String.valueOf(input);
+         for (int i = 0; i < inp.length(); i++) {
+              if (nums.indexOf(inp.charAt(i)) < 0) {
+                   return false;
+              }
+         }
+
+         CSVRW check = new CSVRW("Numbers.csv");
+         if (inp.length() == 4) {
+              long temp = (Long.valueOf(inp) + 1029) * 384756;
+              for (int i = 0; i <= check.size() - 1; i++) {
+                   if (Long.valueOf(check.get(i, 1)) == temp) {
+                        return true;
+                   }
+              } return false;
+         } return false;
+    } // end of isValidPin()
+
+
+
+
+    public void generateCard () {
+         String resp;
+         System.out.println("Would you like to generate a CreditCard?");
+         resp = Keyboard.readString().toLowerCase();
+         if (resp.equals("yes")) {
+              System.out.println("Great!");
+              card = new CreditCard();
+              System.out.println("This is your card number: " + card.cardNum);
+              System.out.println("This is your pin number: " + card.cardPin);
+              System.out.println("Remember! Don't lose this information!");
+         }
+    }
+
+    //***********************************************************
 
     //*******************checkout methods************************
 
+    // WIP
+    public void historyCSVRW() {
+         CSVRW history = new CSVRW("Numbers.csv");
+
+    }
+
+    // WIP
     public void listPrevRentals() {
 	// check previous rentals
 	// and print them in a vertical list
+    }
+
+    public void checkout() {
+         // user checks out movies
+         this.receipt();
+         cart = new ArrayList<String>();
     }
 
     public void listOrders() {
@@ -166,11 +229,36 @@ public class Kiosk {
 
     public void receipt() {
 	// print out a receipt for the user
+     System.out.println("Thank you for shopping with us number " + card.cardNum);
+     System.out.println("You rented ");
+     for (int itemCount = 0; itemCount < cart.size(); itemCount++) {
+          System.out.println( (itemCount + 1) + ". " + cart.get(itemCount));
+     }
+     System.out.println("Have a nice day!");
+
     }
 
     //***********************************************************
     public void go(){
 	// start Kiosk
+     System.out.println("Do you have a CreditCard?");
+     String respStr = Keyboard.readString().toLowerCase();
+     if (respStr.equals("no")) {
+          this.generateCard();
+          System.out.println("\n\n\n\n\n\n");
+     }
+     else if (respStr.equals("yes")) {
+          System.out.println("Please enter your CreditCard number: ");
+          long num = Keyboard.readLong();
+          System.out.println("Now your pin: ");
+          long pin = Keyboard.readLong();
+          if (this.isValidNum(num) && this.isValidPin(pin)) {
+               System.out.println("success\n\n\n\n\n");
+          }
+          else {
+               System.out.println("fail");
+          }
+     }
      Movie _movies = new Movie();
      this.home(_movies);
 
