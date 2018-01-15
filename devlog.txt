@@ -48,6 +48,7 @@ COOL STUFF LEARNED
 * The Calendar class is not only able to return the current date and time,
 it can also manipulate the system time and date.
 
+
 MID-DEVELOPMENT DESIGN CHANGES
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 We changed ___ to ___ bc...
@@ -73,9 +74,13 @@ LESSONS LEARNED
 ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 
 
-yyyy-mm-dd
+2018-01-13
 --------------------------------------------------------------
-<Member> :: <Thing member did.>
-<Member> :: <Thing member did.>
-<Member> :: <Thing member did.>
+Joan :: Wrote and finished Movie.java as well as write the movies.csv file to
+store all the available movies.
+
+Aaron :: Finished up CreditCard.java
+
+Johnny :: Implemented and added to Kiosk.java to have user interface and
+to use CreditCard.java
 ==============================================================
