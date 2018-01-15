@@ -62,7 +62,7 @@ public class CreditCard {
 
           CSVRW check = new CSVRW("Numbers.csv");
           if (inp.length() == 12) {
-               for (long i = 0; i < check.size(); i++) {
+               for (int i = 0; i < check.size(); i++) {
                     if (Long.valueOf(check.get(i, 0)) == Long.valueOf(inp)) {
                          return true;
                     }
@@ -82,7 +82,7 @@ public class CreditCard {
           CSVRW check = new CSVRW("Numbers.csv");
           if (inp.length() == 4) {
                long temp = (Long.valueOf(inp) + 1029) * 384756;
-               for (long i = 0; i < check.size(); i++) {
+               for (int i = 0; i < check.size(); i++) {
                     if (Long.valueOf(check.get(i, 1)) == temp) {
                          return true;
                     }
@@ -93,18 +93,18 @@ public class CreditCard {
      protected void encrypt (long pin) {
           ePin = (pin + 1029) * 384756;
           CSVRW poop = new CSVRW("Numbers.csv");
-          poop.set(poop.size(), 1, toString(ePin));
-          poop.write();
+          poop.set(poop.size(), 1, Long.toString(ePin, 10));
+          poop.write("Numbers.csv");
      } // end of encrypt()
 
      protected long genNum () {
           String output = "";
           for (int i = 0; i < 12; i++) {
-               ouput += ((int) (Math.random() * 10)) + "";
+               output += ((int) (Math.random() * 10)) + "";
           } CSVRW poop = new CSVRW("Numbers.csv");
           poop.addRow();
           poop.set(poop.size(), 0, output);
-          poop.write();
+          poop.write("Numbers.csv");
           return (Long.valueOf(output));
      } // end of genNum()
 
