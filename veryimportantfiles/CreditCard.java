@@ -24,7 +24,14 @@ Methods:
      * genPin -> generates a credit card pin number
 
 **********************************************************************/
+
+// add movie strings for movies
+// add return date *long string
+
+// money
+
 import jutils.*;
+import java.utils.ArrayList;
 
 public class CreditCard {
 
@@ -33,7 +40,7 @@ public class CreditCard {
      protected long cardNum; // stores card number
      protected long cardPin; // stores card pin
      protected long ePin; // stores encrypted pin
-
+     protected ArrayList<String> movies; // stores names of movies
 
      // Constructors
 
