@@ -119,8 +119,7 @@ public class CreditCard {
           String output = "";
           for (int i = 0; i < 4; i++) {
                output += (int) (Math.random() * 10);
-          } output += (int) (Math.random() * 10);
-          return output;
+          } return output;
      } // end of genPin()
 
      protected String genMovie (String name, String date) {
