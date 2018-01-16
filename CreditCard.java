@@ -1,8 +1,8 @@
 /*
-    ____     _    __
-   / __ \   (_)  / /_   ____
-  / /_/ /  / /  / __/  / __ \
- / _, _/  / /  / /_   / /_/ /
+____     _    __
+/ __ \   (_)  / /_   ____
+/ /_/ /  / /  / __/  / __ \
+/ _, _/  / /  / /_   / /_/ /
 /_/ |_|  /_/   \__/   \____/
 
 ------------------------------------
@@ -12,28 +12,36 @@ Aaron Li, Johnny Wong, Joan Chirinos
 
 /**********************************************************************
 Constructors:
-     * default constructor -> creates new card with random card number and pin
-     * overloaded constructor -> creates a new card with input number and pin
+* default constructor -> creates new card with random card number and pin
+* overloaded constructor -> creates a new card with input number and pin
 
 Methods:
-     * encrypt -> encrpts credit card pin
-     * isValidNum -> checks if the input matches a valid card number in Numbers.csv
-     * isvALIDpIN -> checks if the input matches a valid pin number(encrypted)
-       in Numbers.csv
-     * genNum -> generates a credit card number
-     * genPin -> generates a credit card pin number
+* encrypt -> encrpts credit card pin
+* isValidNum -> checks if the input matches a valid card number in Numbers.csv
+* isvALIDpIN -> checks if the input matches a valid pin number(encrypted)
+in Numbers.csv
+* genNum -> generates a credit card number
+* genPin -> generates a credit card pin number
 
 **********************************************************************/
+
+// add movie strings for movies
+// add return date *long string
+
+// money
+
 import jutils.*;
+import java.util.ArrayList;
 
 public class CreditCard {
 
      // Instance Variables
 
-     protected long cardNum; // stores card number
-     protected long cardPin; // stores card pin
-     protected long ePin; // stores encrypted pin
-
+     protected String cardNum; // stores card number
+     protected String cardPin; // stores card pin
+     protected String ePin; // stores encrypted pin
+     protected String money;
+     protected ArrayList<String> movies; // stores names of movies
 
      // Constructors
 
@@ -43,13 +51,13 @@ public class CreditCard {
           ePin = encrypt(cardPin);
 
           CSVRW check = new CSVRW("Numbers.csv");
-          check.set(check.size() - 1, 0, Long.toString(cardNum));
-          check.set(check.size() - 1, 1, Long.toString(ePin));
+          check.set(check.size() - 1, 0, cardNum);
+          check.set(check.size() - 1, 1, ePin);
           check.addRow();
           check.write("Numbers.csv");
      }
 
-     public CreditCard (long num, long pin) {
+     public CreditCard (String num, String pin) {
           cardNum = num;
           cardPin = pin;
           ePin = encrypt(pin);
@@ -58,37 +66,35 @@ public class CreditCard {
 
      // Methods
 
-     protected boolean isValidNum (long input) {
+     protected boolean isValidNum (String input) {
           String nums = "0123456789";
-          String inp = String.valueOf(input);
-          for (int i = 0; i < inp.length(); i++) {
-               if (nums.indexOf(inp.charAt(i)) < 0) {
+          for (int i = 0; i < input.length(); i++) {
+               if (nums.indexOf(input.charAt(i)) < 0) {
                     return false;
                }
           }
 
           CSVRW check = new CSVRW("Numbers.csv");
-          if (inp.length() == 12) {
+          if (input.length() == 12) {
                for (int i = 0; i < check.size() - 1; i++) {
-                    if (Long.valueOf(check.get(i, 0)).equals(Long.valueOf(inp))) {
+                    if (Long.valueOf(check.get(i, 0)).equals(Long.valueOf(input))) {
                          return true;
                     }
                } return false;
           } return false;
      } // end of isValidNum()
 
-     protected boolean isValidPin(long input) {
+     protected boolean isValidPin(String input) {
           String nums = "0123456789";
-          String inp = String.valueOf(input);
-          for (int i = 0; i < inp.length(); i++) {
-               if (nums.indexOf(inp.charAt(i)) < 0) {
+          for (int i = 0; i < input.length(); i++) {
+               if (nums.indexOf(input.charAt(i)) < 0) {
                     return false;
                }
           }
 
           CSVRW check = new CSVRW("Numbers.csv");
-          if (inp.length() == 4) {
-               long temp = (Long.valueOf(inp) + 1029) * 384756;
+          if (input.length() == 4) {
+               long temp = (Long.valueOf(input) + 1029) * 384756;
                for (int i = 0; i <= check.size() - 1; i++) {
                     if (Long.valueOf(check.get(i, 1)) == temp) {
                          return true;
@@ -97,23 +103,37 @@ public class CreditCard {
           } return false;
      } // end of isValidPin()
 
-     protected long encrypt (long pin) {
-          ePin = (pin + 1029) * 384756;
+     protected String encrypt (String pin) {
+          ePin = "" + (Long.valueOf(pin) + 1029) * 384756;
           return ePin;
      } // end of encrypt()
 
-     protected long genNum () {
+     protected String genNum () {
           String output = "";
           for (int i = 0; i < 12; i++) {
-               output += ((int) (Math.random() * 10)) + "";
-          } return (Long.valueOf(output));
+               output += (int) (Math.random() * 10);
+          } return output;
      } // end of genNum()
 
-     protected long genPin () {
+     protected String genPin () {
           String output = "";
           for (int i = 0; i < 4; i++) {
-               output += ((int) (Math.random() * 10)) + "";
-          } return (Long.valueOf(output));
+               output += (int) (Math.random() * 10);
+          } output += (int) (Math.random() * 10);
+          return output;
      } // end of genPin()
+
+     protected String genMovie (String name, String date) {
+          String out = name + "," + date + "|";
+
+          CSVRW check = new CSVRW("Numbers.csv");
+
+          for (int i = 0; i < check.size() - 1; i++) {
+
+          }
+          return "yes";
+     } // end of genMovie
+
+
 
 } // end of CreditCard class
