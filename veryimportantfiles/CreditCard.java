@@ -31,7 +31,7 @@ Methods:
 // money
 
 import jutils.*;
-import java.utils.ArrayList;
+// import java.utils.ArrayList;
 
 public class CreditCard {
 
@@ -40,7 +40,7 @@ public class CreditCard {
      protected long cardNum; // stores card number
      protected long cardPin; // stores card pin
      protected long ePin; // stores encrypted pin
-     protected ArrayList<String> movies; // stores names of movies
+     // protected ArrayList<String> movies; // stores names of movies
 
      // Constructors
 
@@ -110,17 +110,30 @@ public class CreditCard {
      } // end of encrypt()
 
      protected long genNum () {
-          String output = "";
-          for (int i = 0; i < 12; i++) {
+          String output = "" + (int) (Math.random() * 10);
+          for (int i = 1; i < 12; i++) {
                output += ((int) (Math.random() * 10)) + "";
           } return (Long.valueOf(output));
      } // end of genNum()
 
      protected long genPin () {
-          String output = "";
-          for (int i = 0; i < 4; i++) {
-               output += ((int) (Math.random() * 10)) + "";
-          } return (Long.valueOf(output));
+          String output = "" + (int) (Math.random() * 10);
+          System.out.println(output);
+          for (int i = 2; i < 4; i++) {
+               output += (int) (Math.random() * 10);
+          } output += ((int) (Math.random() * 10));
+          return (Long.valueOf(output));
      } // end of genPin()
+
+     protected String genMovie (String name, String date) {
+          String out = name + "," + date + "|";
+
+          CSVRW check = new CSVRW("Numbers.csv");
+
+          for (int i = 0; i < check.size() - 1; i++) {
+
+          }
+          return "yes";
+     }
 
 } // end of CreditCard class

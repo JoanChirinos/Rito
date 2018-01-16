@@ -3,16 +3,14 @@ import jutils.*;
 public class TestCreditCard {
 
      public static void main(String[] args) {
-          CreditCard test = new CreditCard(123412341234l,1532l);
+          CreditCard test = new CreditCard();
 
-          CreditCard test1 = new CreditCard(123431341234l,5555l);
+          long output = test.cardPin;
 
-          CreditCard tes = new CreditCard();
+          // String output = "" + (int) (Math.random() * 10);
+          // output += (int) (Math.random() * 10);
 
-          CSVRW check = new CSVRW("Numbers.csv");
-          System.out.println(check.size());
-
-
+          System.out.println(output);
 
 
      }//end main
