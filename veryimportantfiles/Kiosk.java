@@ -141,37 +141,35 @@ public class Kiosk {
 
     //*******************CreditCard methods************************
 
-    public boolean isValidNum (long input) {
+    public boolean isValidNum (String input) {
          String nums = "0123456789";
-         String inp = String.valueOf(input);
-         for (int i = 0; i < inp.length(); i++) {
-              if (nums.indexOf(inp.charAt(i)) < 0) {
+         for (int i = 0; i < input.length(); i++) {
+              if (nums.indexOf(input.charAt(i)) < 0) {
                    return false;
               }
          }
 
          CSVRW check = new CSVRW("Numbers.csv");
-         if (inp.length() == 12) {
+         if (input.length() == 12) {
               for (int i = 0; i < check.size() - 1; i++) {
-                   if (Long.valueOf(check.get(i, 0)).equals(Long.valueOf(inp))) {
+                   if (Long.valueOf(check.get(i, 0)).equals(Long.valueOf(input))) {
                         return true;
                    }
               } return false;
          } return false;
     } // end of isValidNum()
 
-    public boolean isValidPin(long input) {
+    public boolean isValidPin(String input) {
          String nums = "0123456789";
-         String inp = String.valueOf(input);
-         for (int i = 0; i < inp.length(); i++) {
-              if (nums.indexOf(inp.charAt(i)) < 0) {
+         for (int i = 0; i < input.length(); i++) {
+              if (nums.indexOf(input.charAt(i)) < 0) {
                    return false;
               }
          }
 
          CSVRW check = new CSVRW("Numbers.csv");
-         if (inp.length() == 4) {
-              long temp = (Long.valueOf(inp) + 1029) * 384756;
+         if (input.length() == 4) {
+              long temp = (Long.valueOf(input) + 1029) * 384756;
               for (int i = 0; i <= check.size() - 1; i++) {
                    if (Long.valueOf(check.get(i, 1)) == temp) {
                         return true;
@@ -245,7 +243,7 @@ public class Kiosk {
 
     }
     public void movieDue(){
-         
+
     }
     //***********************************************************
     public void go(){
@@ -258,9 +256,9 @@ public class Kiosk {
      }
      else if (respStr.equals("yes")) {
           System.out.println("Please enter your CreditCard number: ");
-          long num = Keyboard.readLong();
+          String num = Keyboard.readString();
           System.out.println("Now your pin: ");
-          long pin = Keyboard.readLong();
+          String pin = Keyboard.readString();
           if (this.isValidNum(num) && this.isValidPin(pin)) {
                System.out.println("success\n\n\n\n\n");
           }
