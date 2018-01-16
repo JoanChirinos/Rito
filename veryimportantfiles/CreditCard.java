@@ -40,6 +40,7 @@ public class CreditCard {
      protected String cardNum; // stores card number
      protected String cardPin; // stores card pin
      protected String ePin; // stores encrypted pin
+     protected String money;
      protected ArrayList<String> movies; // stores names of movies
 
      // Constructors
@@ -132,5 +133,6 @@ public class CreditCard {
           }
           return "yes";
      }
+
 
 } // end of CreditCard class

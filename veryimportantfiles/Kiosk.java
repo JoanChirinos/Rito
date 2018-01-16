@@ -185,9 +185,9 @@ public class Kiosk {
          int resp;
          System.out.println("Would you like to generate a CreditCard?");
          System.out.println("1. yes");
-         System.out.println("2. no")
+         System.out.println("2. no");
          resp = Keyboard.readInt();
-         if (resp == 1)) {
+         if (resp == 1) {
               System.out.println("Great!");
               card = new CreditCard();
               System.out.println("This is your card number: " + card.cardNum);
@@ -258,7 +258,7 @@ public class Kiosk {
           this.generateCard();
           System.out.println("\n\n\n\n\n\n");
      }
-     else if (resp == 1)) {
+     else if (resp == 1) {
           System.out.println("Please enter your CreditCard number: ");
           String num = Keyboard.readString();
           System.out.println("Now your pin: ");
