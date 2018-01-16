@@ -182,10 +182,12 @@ public class Kiosk {
 
 
     public void generateCard () {
-         String resp;
+         int resp;
          System.out.println("Would you like to generate a CreditCard?");
-         resp = Keyboard.readString().toLowerCase();
-         if (resp.equals("yes")) {
+         System.out.println("1. yes");
+         System.out.println("2. no")
+         resp = Keyboard.readInt();
+         if (resp == 1)) {
               System.out.println("Great!");
               card = new CreditCard();
               System.out.println("This is your card number: " + card.cardNum);
@@ -249,12 +251,14 @@ public class Kiosk {
     public void go(){
 	// start Kiosk
      System.out.println("Do you have a CreditCard?");
-     String respStr = Keyboard.readString().toLowerCase();
-     if (respStr.equals("no")) {
+     System.out.println("1. yes");
+     System.out.println("2. no");
+     int resp = Keyboard.readInt();
+     if (resp == 2) {
           this.generateCard();
           System.out.println("\n\n\n\n\n\n");
      }
-     else if (respStr.equals("yes")) {
+     else if (resp == 1)) {
           System.out.println("Please enter your CreditCard number: ");
           String num = Keyboard.readString();
           System.out.println("Now your pin: ");
