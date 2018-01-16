@@ -239,6 +239,15 @@ public class Kiosk {
     }
 
     //***********************************************************
+
+    //************************Calendar methods*******************
+    public void fastForward(){
+
+    }
+    public void movieDue(){
+         
+    }
+    //***********************************************************
     public void go(){
 	// start Kiosk
      System.out.println("Do you have a CreditCard?");

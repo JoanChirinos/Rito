@@ -36,13 +36,11 @@ OBSTACLES OVERCOME
 using a python program that was written to access data from IMDB.
 
 
+
 UNRESOLVED ISSUES
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-<
-blah blah pesky bug...
-maybe some of these will move into the Obs.Ovrcm section...
->
-
+* Implementing Calendar and how to create a fast forward method.
+* The user does not have access to the rest of the movies available from Movie.java.
 COOL STUFF LEARNED
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * The Calendar class is not only able to return the current date and time,
@@ -52,8 +50,10 @@ it can also manipulate the system time and date.
 MID-DEVELOPMENT DESIGN CHANGES
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 We changed ___ to ___ bc...
-<etc>
-<etc>
+
+We changed the rent method in Kiosk.java from being able to rent from all of the movies to just the top 5
+because we did not have the time to implement such feature involving sort as of yet. We plan on enabling 
+this feature soon.
 
 LESSONS LEARNED
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -82,5 +82,5 @@ store all the available movies.
 Aaron :: Finished up CreditCard.java
 
 Johnny :: Implemented and added to Kiosk.java to have user interface and
-to use CreditCard.java
+to use CreditCard.java and Movie.java.
 ==============================================================
