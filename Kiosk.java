@@ -244,7 +244,7 @@ public class Kiosk {
          CSVRW check = new CSVRW("Numbers.csv");
          for (int i = 0; i < check.size() - 1; i++) {
               if (check.get(i,0).equals(cardNum)) {
-                   System.out.println(check.get(i,3).split("|"));
+                   System.out.println(check.get(i,3).split("|")[0]);
                    prevRentals.add(check.get(i,3).split("|"));
               }
               if (prevRentals.size() > 0) {
