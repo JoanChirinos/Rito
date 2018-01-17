@@ -15,7 +15,28 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 /**********************************************************************
- <notes and comments>
+* default contructor -> ArrayList<String> cart is initialized to an empty
+                          ArrayList<String>
+                          price is initialized to a value of 3
+  Methods:
+  * void home (Movie movie) -> sends the user back to our default "page"
+  * void home (Movie movie, String lastSearch) -> sends the user to a page similar
+                                                  to our default, but displays 5 movies
+                                                  related to lastSearch
+  * void decisionMaking(Movie movie, String lastSearch) -> the main component of our project that ties
+                                                           our whole project together - this is where all
+                                                           of the conditionals are asked after user provides inputs
+                                                           based on printed directions - it is recursively called until
+                                                            the user exits or checksout a movie
+   * void rent(Movie movie, String searchInfo) -> user adds a movie to the Kiosk's cart
+   * void returnPrev() -> user returns their previously rented movies
+ - * String findMovie (Movie movie, String name, int index) -> returns the name of a movie in our movies.csv dependent on
+ -                                                             inputted search info
+ + * String findMovie (Movie movie, String name, int index) -> finds movie based on passed String and user inputted int
+   * boolean isValidNum (String input) -> returns true or false if inputted DebitCard number is stored in our Numbers.csv
+   * boolean isValidPin (String input) -> returns true or false if inputted DebitCard pin is stored in our Numbers.csv
+   * void generateCard() -> if the user would like, a new DebitCard card can be generated and added to Numbers.csv
+
 **********************************************************************/
 
 public class Kiosk {
@@ -63,7 +84,7 @@ public class Kiosk {
 	int choice = 0;
 	String search1 = lastSearch;
 	while (true) {
-	    System.out.println("What would you like to do?\nYou can \n1. search\n2. rent\n3. view cart\n4. fast-forward time!\n5. Exit");
+	    System.out.println("What would you like to do?\nYou can \n1. search\n2. rent\n3. view cart\n4. fast-forward time!\n5. return movies \n6. Exit");
 	    choice = Keyboard.readInt();
 	    // search choice
 	    if (choice == 1) {
@@ -131,7 +152,16 @@ public class Kiosk {
 	    else if (choice == 4) {
 		this.fastForward();
 	    }
-	    else if (choice == 5) return;
+	    else if (choice == 5) {
+		try {
+		    returnPrev();
+		}
+		catch (Exception e) {
+		    System.out.println("You didn't have any movies out!");
+		}
+		this.home(movie);
+	    }
+	    else if (choice == 6) return;
 	    else {
 		System.out.println("Please make a choice from 1-5\n\n\n\n\n");
 		this.home(movie);
@@ -345,8 +375,18 @@ public class Kiosk {
 	for (int itemCount = 0; itemCount < cart.size(); itemCount++) {
 	    System.out.println( (itemCount + 1) + ". " + cart.get(itemCount));
 	}
-	if (hasPrevRentals(this.card.cardNum).size() > 1) {
-	    listPrevRentals(hasPrevRentals(this.card.cardNum));
+    }
+
+    public void returnPrev() {
+	String prev = prevRentals(this.getcardNum());
+	CSVRW check = new CSVRW("Numbers.csv");
+	for (int i = 0; i < check.size() - 1; i++) {
+	    if (check.get(i,3).equals(prev)) {
+		check.set(i, 3, "_");
+		check.write("Numbers.csv");
+		System.out.println("You have successfully returned your previous rentals!\n\n\n\n\n");
+		break;
+	    }
 	}
     }
 
@@ -364,6 +404,64 @@ public class Kiosk {
 	System.out.println("Have a nice day!");
 
     }
+
+    public void listPrevRentals(String prevRentals) {
+  
+	int numOwed = countOfChar(prevRentals, "|");
+	if (numOwed > 0) {
+	    System.out.println("You have not returned the following:");
+	    String prev = prevRentals;
+	    int index = prev.indexOf("|");
+	    int count = 1;
+	    while (numOwed > 0) {
+		System.out.println(count + ". " + prev.substring(0, index));
+		prev = prev.substring(index + 1);
+		index = prev.indexOf("|");
+		count++;
+		numOwed--;
+	    }
+	}
+    }
+  
+    
+	
+	
+	
+    // returns count of a Char present in a String
+	public int countOfChar (String str, String search) {
+	int count = 0;
+	char letter = search.charAt(0);
+	for (int i = 0; i < str.length(); i++) {
+	    if (str.charAt(i) == letter) {
+		count++;
+	    }
+	}
+	return count;
+    }
+  
+    // returns the previously rented movies associated with inputted cardNum
+    
+	public String prevRentals (String cardNum) {
+	// check previous rentals
+	String ret;
+	// CSV File Writing
+ 
+	CSVRW check = new CSVRW("Numbers.csv");
+	for (int i = 0; i < check.size() - 1; i++) {
+	    if (check.get(i,0).equals(cardNum)) {
+		ret = check.get(i,3);
+		return ret;
+	    }
+ 
+	}
+	return "";
+    }
+ 
+    // accessor method to get current card's cardNum
+    public String getcardNum () {
+	return card.cardNum;
+	
+	    }
 
     //***********************************************************
 
@@ -417,6 +515,7 @@ public class Kiosk {
 		System.out.println("Now your pin: ");
 		String pin = Keyboard.readString();
 		if (this.isValidNum(num) && this.isValidPin(pin)) {
+		    card = new DebitCard(num, pin);
 		    System.out.println("success\n\n\n\n\n");
 		    break;
 		}

@@ -80,7 +80,11 @@ public class DebitCard {
           //           money = check.get(i,2); // gives current balance
           //      }
           // }
-          money = "1000"; // gives starting money
+	  CSVRW cash = new CSVRW("Numbers.csv");
+	  for (int i = 0; i < cash.size() - 1; i++) {
+	      if (cash.get(i, 0).equals(cardNum))
+		  money = cash.get(i, 2);
+	  } // gives starting money
 
      } // end of overloaded constructor
 
