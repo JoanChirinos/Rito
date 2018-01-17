@@ -38,38 +38,50 @@ public class Kiosk {
 	// view top 5 movies
      System.out.println("Hello! Welcome to Rito's Rad Movies!\nPlease view our wicked collection of the past decade!");
      movie.search("");
-     this.decisionMaking(movie);
+     this.decisionMaking(movie, "");
+    } // end of home
+
+
+    // overloaded version of home that passes that lastSearched terms/movie
+    public void home(Movie movie, String lastSearch) {
+	// view top 5 movies
+     System.out.println("Hello! Welcome to Rito's Rad Movies!\nPlease view our wicked collection of the past decade!");
+     movie.search(lastSearch);
+     this.decisionMaking(movie, lastSearch);
     } // end of home
 
 
     // the user can search, rent, return movies, or view their cart
-    public void decisionMaking(Movie movie) {
+    public void decisionMaking(Movie movie, String lastSearch) {
 
          String respStr;
          int respInt;
          int choice = 0;
+         String search1 = lastSearch;
          System.out.println("What would you like to do?\nYou can \n1. search\n2. rent\n3. view cart");
          choice = Keyboard.readInt();
          // search choice
          if (choice == 1) {
               System.out.println("What would you like to search for?");
-              String search1 = Keyboard.readString();
-              if (movie.search(search1)) {
-                   System.out.println("Do you want to rent any of these?");
-                   respStr = Keyboard.readString().toLowerCase();
-                   if (respStr.equals("yes")) {
-                        // this is not fully functional yet
-                        // rent works for the top 5 movies only...
-                        this.rent(movie);
+              search1 = Keyboard.readString();
+              // if (movie.search(search1)) {
+              //      System.out.println("Do you want to rent any of these?");
+              //      respStr = Keyboard.readString().toLowerCase();
+              //      if (respStr.equals("yes")) {
+              //           // this is not fully functional yet
+              //           // rent works for the top 5 movies only...
+              //           this.rent(movie);
+              //
+              //      }
+              // }
+              this.home(movie, search1);
 
-                   }
-              }
          }
          // end of search choice
 
          // rent choice
          else if (choice == 2) {
-              this.rent(movie);
+              this.rent(movie, search1);
 
          }
 
@@ -77,8 +89,6 @@ public class Kiosk {
 
          // view cart
          else if (choice == 3) {
-              // <previous rental situation>
-
               if (cart.size() == 0) {
                    System.out.println("Nothing seems to be in your cart my dear...\n\n\n\n\n");
                    this.home(movie);
@@ -86,8 +96,10 @@ public class Kiosk {
               else {
                    this.listOrders();
                    System.out.println("Would you like to checkout?");
-                   respStr = Keyboard.readString().toLowerCase();
-                   if (respStr.equals("yes")) {
+                   System.out.println("1. yes");
+                   System.out.println("2. no");
+                   respInt = Keyboard.readInt();
+                   if (respInt == 1) {
                         this.checkout();
                    }
                    else {
@@ -109,7 +121,8 @@ public class Kiosk {
     // user can choose out of the 5 current movies on display which to rent
     // uses error handling in case the user does not choose a number from 1-5
     // if the user does not decide to rent any, user moves back to home page
-    public void rent(Movie movie) {
+    public void rent(Movie movie, String searchInfo) {
+         String movieName;
          boolean didNotChoose = true;
          while (didNotChoose) {
               System.out.println("Which movie would you like to rent?");
@@ -119,16 +132,24 @@ public class Kiosk {
               }
               else {
                    didNotChoose = false;
-                   System.out.println("So you would like to rent " + movie._movienames.get(respInt - 1) + " ?");
-                   String respStr = Keyboard.readString().toLowerCase();
-                   if (respStr.equals("yes")) {
-                        cart.add(movie._movienames.get(respInt - 1));
-                        System.out.println(movie._movienames.get(respInt - 1) + " has been added to your cart.");
+                   if (searchInfo.equals("")) {
+                        movieName = movie._movienames.get(respInt - 1);
+                   }
+                   else {
+                        movieName = this.findMovie(movie, searchInfo);
+                   }
+                   System.out.println("So you would like to rent " + movieName + " ?");
+                   System.out.println("1. yes");
+                   System.out.println("2. no");
+                   int respInt2 = Keyboard.readInt();
+                   if (respInt2 == 1) {
+                        cart.add(movieName);
+                        System.out.println(movieName + " has been added to your cart.");
                         System.out.println("\n\n\n\n\n\n");
                         this.home(movie);
                    }
                    else {
-                        System.out.println("Bummer...\n\n\nHome Page");
+                        System.out.println("Bummer...\n\n\n\n");
                         this.home(movie);
 
                    }
@@ -136,6 +157,12 @@ public class Kiosk {
          }
     }
 
+    public String findMovie (Movie movie, String name) {
+         // for (int i = 0; i < movie._movienames.size(); i++) {
+         //
+         // }
+         return "XD";
+    }
 
     //***********************************************************
 
@@ -271,7 +298,7 @@ public class Kiosk {
           }
      }
      Movie _movies = new Movie();
-     this.home(_movies);
+     this.home(_movies, "");
 
     }
 
