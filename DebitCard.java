@@ -74,7 +74,7 @@ public class DebitCard {
           cardPin = pin; // sets pin number to inputted pin
           ePin = encrypt(pin); // encrypts and stores inputted pin number
           money = "1000000"; // gives starting money
-          
+
      } // end of overloaded constructor
 
 
@@ -165,15 +165,10 @@ public class DebitCard {
                // and then it appends the name of the movie rented and the date
                for (int i = 0; i < check.size() - 1; i++) {
                     if (check.get(i, 0).equals(num)) {
-                         if (check.get(i, 3).equals(null)) {
-                              check.set(i, 3, name + "," + date + "|");
-                              check.write("Numbers.csv");
-                         } else {
-                              String temp = check.get(i, 3);
-                              temp += name + "," + date + "|";
-                              check.set(i, 3, temp);
-                              check.write("Numbers.csv");
-                         }
+                         String temp = check.get(i, 3);
+                         temp += name + "," + date + "|";
+                         check.set(i, 3, temp);
+                         check.write("Numbers.csv");
                     }
                }
           }
