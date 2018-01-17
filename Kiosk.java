@@ -164,7 +164,7 @@ public class Kiosk {
                    break;
               }
               for (int c = 0; c < 5; c++) {
-                   if ( (movie._movieinfo.get(i).get(c).indexOf(name)) != -1) {
+                   if ( (movie._movieinfo.get(i).indexOf(name)) != -1) {
                         _movies.add(movie._movienames.get(i));
                    }
               }
