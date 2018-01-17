@@ -14,19 +14,49 @@ import jutils.*;
 import java.util.ArrayList;
 
 /**********************************************************************
- <notes and comments>
+ Constructors:
+ * default contructor -> ArrayList<String> cart is initialized to an empty
+                         ArrayList<String>
+                         price is initialized to a value of 3
+ Methods:
+ * void home (Movie movie) -> sends the user back to our default "page"
+ * void home (Movie movie, String lastSearch) -> sends the user to a page similar
+                                                 to our default, but displays 5 movies
+                                                 related to lastSearch
+ * void decisionMaking(Movie movie, String lastSearch) -> the main component of our project that ties
+                                                          our whole project together - this is where all
+                                                          of the conditionals are asked after user provides inputs
+                                                          based on printed directions - it is recursively called until
+                                                          the user exits or checksout a movie
+ * void rent(Movie movie, String searchInfo) -> user adds a movie to the Kiosk's cart
+ * void returnPrev() -> user returns their previously rented movies
+ * String findMovie (Movie movie, String name, int index) -> returns the name of a movie in our movies.csv dependent on
+                                                             inputted search info
+ * boolean isValidNum (String input) -> returns true or false if inputted DebitCard number is stored in our Numbers.csv
+ * boolean isValidPin (String input) -> returns true or false if inputted DebitCard pin is stored in our Numbers.csv
+ * void generateCard() -> if the user would like, a new DebitCard card can be generated and added to Numbers.csv
+ * void listPrevRentals(String prevRentals) -> prints out a list of movies the user has not returned yet
+ * int countOfChar(String str, String search) -> returns how many movies a user owes determined by number of '|' present
+ * String prevRentals (String cardNum) -> returns String containing movies a user owes, if any
+ * String getcardNum() -> accessor method that returns user's cardNum
+ * void checkout() -> prints out receipt for user and empties cart
+ * void listOrders() -> prints out list of items in cart
+ * void receipt() -> prints out receipt for user
+ * void userCard() -> asks if user has a DebitCard or not; user can create one if they do not have a DebitCard
+ * void go() -> 'driver' method that runs the entire program from a 'loop' that starts from the home method
+
  **********************************************************************/
 
 public class Kiosk {
     // inst vars
-    private DebitCard card;
-    private ArrayList<String> cart;
-    private int price;
+    private DebitCard card; // card associated with user
+    private ArrayList<String> cart; // cart containing movie rentals
+    private int price; // price of each rental
 
     // constructor
     public Kiosk() {
-         cart = new ArrayList<String>();
-         price = 3;
+         cart = new ArrayList<String>(); // cart is empty
+         price = 3; // price is set to 3 initially
     }
 
 
@@ -39,15 +69,16 @@ public class Kiosk {
     public void home(Movie movie) {
 	// view top 5 movies
      System.out.println("Hello! Welcome to Rito's Rad Movies!\nPlease view our wicked collection of the past decade!");
-     System.out.println("We are having a sale where all of the rentals cost $3!!!");
+     System.out.println("We are having a sale where all of the rentals cost $" + price + "!!!!\n");
      movie.search("");
+     // begin loop of decisionMaking
      this.decisionMaking(movie, "");
     } // end of home
 
 
-    // overloaded version of home that passes that lastSearched terms/movie
+    // overloaded version of home that passes the lastSearched terms/movie
     public void home(Movie movie, String lastSearch) {
-	// view top 5 movies
+	// view top 5 movies relating to lastSearch
      movie.search(lastSearch);
      this.decisionMaking(movie, lastSearch);
     } // end of home
@@ -56,10 +87,10 @@ public class Kiosk {
     // the user can search, rent, return movies, or view their cart
     public void decisionMaking(Movie movie, String lastSearch) {
 
-         String respStr;
-         int respInt;
-         int choice = 0;
-         String search1 = lastSearch;
+         String respStr; // user's String input
+         int respInt; // user's int inputs
+         int choice = 0; // the choice the user decides to make
+         String search1 = lastSearch;  // search info is always passed recursively
          System.out.println("What would you like to do?\nYou can \n\n1. search\n2. rent\n3. view cart\n4. return\n");
          choice = Keyboard.readInt();
          // search choice
@@ -82,19 +113,23 @@ public class Kiosk {
          // view cart
          else if (choice == 3) {
 
+              // user can't checkout if nothing is present in the cart
               if (cart.size() == 0) {
                    System.out.println("Nothing seems to be in your cart my dear...\n\n\n\n\n");
-                   this.home(movie);
+                   this.home(movie); // sent back to home page
               }
+              // user does have items in cart -> can checkout
               else {
                    this.listOrders();
                    System.out.println("Would you like to checkout?");
                    System.out.println("1. yes");
                    System.out.println("2. no");
                    respInt = Keyboard.readInt();
+                   // user decides to checkout
                    if (respInt == 1) {
                         this.checkout();
                    }
+                   // user does not decide to checkout
                    else {
                         System.out.println("aww...\n\n\n\n\n\n");
                         this.home(movie);
@@ -104,31 +139,36 @@ public class Kiosk {
          } // end of view cart
 
          else if (choice == 4) {
-              if (prevRentals(this.getcardNum()).length() > 0) {
+              // if the user has any rentals needed to be returned
+              if (prevRentals(this.getcardNum()).length() > 1) {
                    System.out.println("It seems you have some movies due...\n\n\n\n\n");
                    listPrevRentals(prevRentals(this.getcardNum()));
                    System.out.println("\n\n\n\n\nWould you like to return them?");
                    System.out.println("1. yes");
                    System.out.println("2. no");
                    respInt = Keyboard.readInt();
+                   // user wants to return
                    if (respInt == 1) {
                         this.returnPrev();
-                        this.home(movie);
+                        this.home(movie); // referred back to home page
                    }
-                   else if (respInt == 2) {
+                   // user does not want to return
+                   else {
                         System.out.println("That's not very nice! '^' ");
-                        this.home(movie);
+                        this.home(movie); // referred back to home page
                    }
               }
+              // user has no rentals to return
               else {
                    System.out.println("You have nothing to return buddy! Please continue browsing!\n\n\n\n\n");
-                   this.home(movie);
+                   this.home(movie); // referred back to home page
               }
 
          }
+         // user makes choice other than 1, 2, 3, or 4
          else {
               System.out.println("Please make a choice from 1-4\n\n\n\n\n");
-              this.home(movie);
+              this.home(movie); // referred back to home page
          }
 
 
@@ -189,7 +229,7 @@ public class Kiosk {
          }
     }
 
-
+    // searches for a movie in _movienames using passed String name
     public String findMovie (Movie movie, String name, int index) {
          ArrayList<String> _movies = new ArrayList<String>();
          for (int i = 0; i < movie._movieinfo.size(); i++) {
@@ -201,9 +241,6 @@ public class Kiosk {
               }
 
          }
-         for (int i = 0; i < _movies.size(); i++) {
-              System.out.println(_movies.get(i));
-         }
          return _movies.get(index - 1);
     }
 
@@ -211,6 +248,7 @@ public class Kiosk {
 
     //*******************DebitCard methods************************
 
+    // refer to DebitCard.java
     public boolean isValidNum (String input) {
          String nums = "0123456789";
          for (int i = 0; i < input.length(); i++) {
@@ -229,6 +267,7 @@ public class Kiosk {
          } return false;
     } // end of isValidNum()
 
+    // refer to DebitCard.java
     public boolean isValidPin(String input) {
          String nums = "0123456789";
          for (int i = 0; i < input.length(); i++) {
@@ -250,7 +289,7 @@ public class Kiosk {
 
 
 
-
+    // generates a new DebitCard that the user can now use
     public void generateCard () {
          int resp;
          System.out.println("Would you like to generate a DebitCard?");
@@ -262,7 +301,7 @@ public class Kiosk {
               card = new DebitCard();
               System.out.println("This is your card number: " + card.cardNum);
               System.out.println("This is your pin number: " + card.cardPin);
-              System.out.println("Remember! Don't lose this information!");
+              System.out.println("Remember! Don't lose this information!"); // IMPORTANT TO REMEMBER
          }
     }
 
@@ -270,24 +309,39 @@ public class Kiosk {
 
     //*******************checkout methods************************
 
+    // prints out a vertical list
+    // that contains movies yet to be returned, if any
     public void listPrevRentals(String prevRentals) {
 
-
-         System.out.println("You have not returned the following:");
-         String prev = prevRentals;
-         int index = prev.indexOf("|");
-         int count = 1;
-         while (index != -1) {
-              System.out.println(count + prev.substring(0, index));
-              prev = prevRentals.substring(index + 1);
-              index = prevRentals.indexOf("|");
+         int numOwed = countOfChar(prevRentals, "|");
+         if (numOwed > 0) {
+              System.out.println("You have not returned the following:");
+              String prev = prevRentals;
+              int index = prev.indexOf("|");
+              int count = 1;
+              while (numOwed > 0) {
+                   System.out.println(count + ". " + prev.substring(0, index));
+                   prev = prev.substring(index + 1);
+                   index = prev.indexOf("|");
+                   count++;
+                   numOwed--;
+              }
          }
-
-
-
-
     }
 
+    // returns count of a Char present in a String
+    public int countOfChar (String str, String search) {
+         int count = 0;
+         char letter = search.charAt(0);
+         for (int i = 0; i < str.length(); i++) {
+              if (str.charAt(i) == letter) {
+                   count++;
+              }
+         }
+         return count;
+    }
+
+    // returns the previously rented movies associated with inputted cardNum
     public String prevRentals (String cardNum) {
          // check previous rentals
          String ret;
@@ -309,7 +363,7 @@ public class Kiosk {
          return card.cardNum;
     }
 
-
+    // bills the card and prints out a receipt
     public void checkout() {
          // user checks out movies
          this.receipt();
@@ -317,26 +371,27 @@ public class Kiosk {
          cart = new ArrayList<String>();
     }
 
+    // print current orders for movies
+    // in a vertical list
     public void listOrders() {
-         // print current orders for movies
-         // in a vertical list
          System.out.println("\n\n\n\n\n\nYour cart:");
          for (int itemCount = 0; itemCount < cart.size(); itemCount++) {
               System.out.println( (itemCount + 1) + ". " + cart.get(itemCount));
          }
     }
 
+    // print out a receipt containing the movies rented by the user and their cardNum
     public void receipt() {
 	// print out a receipt for the user
      int numRentals = 0;
-     System.out.println("Thank you for shopping with us number " + card.cardNum);
+     System.out.println("Thank you for shopping with us number " + this.getcardNum());
      System.out.println("You rented ");
      for (int itemCount = 0; itemCount < cart.size(); itemCount++) {
           System.out.println( (itemCount + 1) + ". " + cart.get(itemCount));
           numRentals++;
-          card.genMovie(card.cardNum, cart.get(itemCount), " due on January-17-2018");
+          card.genMovie(this.getcardNum(), cart.get(itemCount), " due on January-17-2018");
      }
-     System.out.println(card.deduct(card.cardNum, price * numRentals));
+     System.out.println(card.deduct(this.getcardNum(), price * numRentals));
      System.out.println("Have a nice day!");
 
     }
@@ -345,12 +400,14 @@ public class Kiosk {
 
     //************************Calendar methods*******************
     public void fastForward(){
-
+         // <UNABLE TO COMPLETE>
     }
     public void movieDue(){
-
+         // <UNABLE TO COMPLETE>
     }
     //***********************************************************
+
+    //**********************General Kiosk methods****************
     public void userCard() {
          System.out.println("Do you have a DebitCard?");
          System.out.println("\n1. yes");
@@ -378,6 +435,7 @@ public class Kiosk {
          }
     }
 
+    // the method Woo.java uses to start our movie Kiosk
     public void go(){
 	// start Kiosk
      this.userCard();
@@ -385,6 +443,7 @@ public class Kiosk {
      this.home(_movies);
 
     }
+    //***********************************************************
 
 
 }

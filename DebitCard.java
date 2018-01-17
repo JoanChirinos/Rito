@@ -73,6 +73,13 @@ public class DebitCard {
           cardNum = num; // sets card number to inputted number
           cardPin = pin; // sets pin number to inputted pin
           ePin = encrypt(pin); // encrypts and stores inputted pin number
+          // // CSV File Reading
+          // CSVRW check = new CSVRW("Numbers.csv");
+          // for (int i= 0; i < check.size() - 1; i++) {
+          //      if (check.get(i,0).equals(cardNum)){
+          //           money = check.get(i,2); // gives current balance
+          //      }
+          // }
           money = "1000"; // gives starting money
 
      } // end of overloaded constructor
