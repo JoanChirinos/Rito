@@ -42,10 +42,13 @@ public class Kiosk {
     public void home(Movie movie) {
 	// view top 5 movies
 <<<<<<< HEAD
+<<<<<<< HEAD
 	System.out.println("Hello! Welcome to Rito's Rad Movies!\nPlease view our wicked collection of the past decade!\nWe are having a sale where all of the rentals cost $3!!!");
 	movie.search("");
 	this.decisionMaking(movie, "");
 =======
+=======
+>>>>>>> 52d8ffdcaade34252ea92fa71ea2516621672858
      System.out.println("Hello! Welcome to Rito's Rad Movies!\nPlease view our wicked collection of the past decade!");
      System.out.println("We are having a sale where all of the rentals cost $3!!!");
      movie.search("");
@@ -305,6 +308,24 @@ public class Kiosk {
          }
     }
 
+<<<<<<< HEAD
+=======
+    // user can return the movies that they have not returned yet
+    // afterwards, the movies they returned is removed from Numbers.csv
+    public void returnPrev() {
+         String prev = prevRentals(this.getcardNum());
+         CSVRW check = new CSVRW("Numbers.csv");
+         for (int i = 0; i < check.size() - 1; i++) {
+              if (check.get(i,3).equals(prev)) {
+                   check.set(i, 3, "_");
+                   check.write("Numbers.csv");
+                   System.out.println("You have successfully returned your previous rentals!\n\n\n\n\n");
+                   break;
+              }
+         }
+    }
+
+>>>>>>> 52d8ffdcaade34252ea92fa71ea2516621672858
 
     public String findMovie (Movie movie, String name, int index) {
 
@@ -406,12 +427,15 @@ public class Kiosk {
     //*******************checkout methods************************
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     public void listPrevRentals(ArrayList<String []> prevRentals) {
 	System.out.println("You have not returned the following:");
 	for (int i = 0; i < prevRentals.size(); i++) {
 	    System.out.println(i + ". " + prevRentals.get(0)[i]);
 	}
 =======
+=======
+>>>>>>> 52d8ffdcaade34252ea92fa71ea2516621672858
     public void listPrevRentals(String prevRentals) {
 
 
@@ -429,8 +453,12 @@ public class Kiosk {
 
 
 
+
+
+
     }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     public ArrayList<String []> hasPrevRentals (String cardNum) {
 	// check previous rentals
@@ -449,6 +477,8 @@ public class Kiosk {
 	}
 	return prevRentals;
 =======
+=======
+>>>>>>> 52d8ffdcaade34252ea92fa71ea2516621672858
     public String prevRentals (String cardNum) {
          // check previous rentals
          String ret;
@@ -468,6 +498,9 @@ public class Kiosk {
     // accessor method to get current card's cardNum
     public String getcardNum () {
          return card.cardNum;
+<<<<<<< HEAD
+>>>>>>> 52d8ffdcaade34252ea92fa71ea2516621672858
+=======
 >>>>>>> 52d8ffdcaade34252ea92fa71ea2516621672858
     }
 
@@ -497,6 +530,9 @@ public class Kiosk {
          for (int itemCount = 0; itemCount < cart.size(); itemCount++) {
               System.out.println( (itemCount + 1) + ". " + cart.get(itemCount));
          }
+<<<<<<< HEAD
+>>>>>>> 52d8ffdcaade34252ea92fa71ea2516621672858
+=======
 >>>>>>> 52d8ffdcaade34252ea92fa71ea2516621672858
     }
 
@@ -620,6 +656,38 @@ public class Kiosk {
          }
     }
 
+<<<<<<< HEAD
+=======
+    }
+    //***********************************************************
+    public void userCard() {
+         System.out.println("Do you have a DebitCard?");
+         System.out.println("\n1. yes");
+         System.out.println("2. no\n");
+         int resp = Keyboard.readInt();
+         if (resp == 2) {
+              this.generateCard();
+              System.out.println("\n\n\n\n\n\n");
+         }
+         else if (resp == 1) {
+              System.out.println("Please enter your DebitCard number: ");
+              String num = Keyboard.readString();
+              System.out.println("\nNow your pin: ");
+              String pin = Keyboard.readString();
+              if (this.isValidNum(num) && this.isValidPin(pin)) {
+                   System.out.println("success\n\n\n\n\n");
+                   card = new DebitCard(num, pin);
+              }
+              else {
+                   System.out.println("fail");
+                   System.out.println("Please enter a real card!");
+                   this.userCard();
+              }
+
+         }
+    }
+
+>>>>>>> 52d8ffdcaade34252ea92fa71ea2516621672858
     public void go(){
 	// start Kiosk
      this.userCard();
