@@ -151,6 +151,7 @@ public class Kiosk {
 	    } // end of view cart
 	    else if (choice == 4) {
 		this.fastForward();
+		this.home(movie);
 	    }
 	    else if (choice == 5) {
 		try {
@@ -382,9 +383,31 @@ public class Kiosk {
 	CSVRW check = new CSVRW("Numbers.csv");
 	for (int i = 0; i < check.size() - 1; i++) {
 	    if (check.get(i,3).equals(prev)) {
+		ArrayList<Integer> due = new ArrayList<Integer>();
+		for (String x : check.get(i, 3).split("|")) {
+		    due.add(Integer.parseInt(x.split(",")[1]));
+		}
+		int needtopay = 0;
+		for (Integer duedate : due) {
+		    if (duedate < c.get(c.DAY_OF_YEAR))
+			needtopay += c.get(c.DAY_OF_YEAR) - duedate;
+		}
 		check.set(i, 3, "_");
 		check.write("Numbers.csv");
-		System.out.println("You have successfully returned your previous rentals!\n\n\n\n\n");
+		if (needtopay > 0) {
+		    System.out.println("You had to pay an extra " +
+				       needtopay +
+				       " dollars due to late fees!");
+		    CSVRW dc = new CSVRW("Numbers.csv");
+		    for (int ccn = 0; ccn < dc.size() - 1; ccn++) {
+			if (dc.get(ccn, 0).equals(this.getcardNum())) {
+			    dc.set(ccn, 2, (Integer.parseInt(dc.get(ccn, 2)) - needtopay) + "");
+			    dc.write("Numbers.csv");
+			    break;
+			}
+		    }
+		}
+		System.out.println("You have successfully returned your previous rentals!\n\n\n");
 		break;
 	    }
 	}
