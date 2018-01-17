@@ -61,7 +61,7 @@ public class DebitCard {
           check.set(check.size() - 1, 0, cardNum);
           check.set(check.size() - 1, 1, ePin);
           check.set(check.size() - 1, 2, money);
-          check.set(check.size() - 1, 3, "");
+          check.set(check.size() - 1, 3, "_");
           // adds new row so user can make another debit card
           check.addRow();
 
@@ -165,10 +165,16 @@ public class DebitCard {
                // and then it appends the name of the movie rented and the date
                for (int i = 0; i < check.size() - 1; i++) {
                     if (check.get(i, 0).equals(num)) {
-                         String temp = check.get(i, 3);
-                         temp += name + "," + date + "|";
-                         check.set(i, 3, temp);
-                         check.write("Numbers.csv");
+                         if (check.get(i,3).equals("_")) {
+                              String temp = name + "," + date + "|";
+                              check.set(i, 3, temp);
+                              check.write("Numbers.csv");
+                         } else {
+                              String temp = check.get(i,3);
+                              temp += name + "," + date + "|";
+                              check.set(i, 3, temp);
+                              check.write("Numbers.csv");
+                         }
                     }
                }
           }
