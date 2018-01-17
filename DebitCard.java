@@ -61,7 +61,7 @@ public class DebitCard {
           check.set(check.size() - 1, 0, cardNum);
           check.set(check.size() - 1, 1, ePin);
           check.set(check.size() - 1, 2, money);
-
+          check.set(check.size() - 1, 3, "");
           // adds new row so user can make another debit card
           check.addRow();
 
@@ -74,7 +74,7 @@ public class DebitCard {
           cardPin = pin; // sets pin number to inputted pin
           ePin = encrypt(pin); // encrypts and stores inputted pin number
           money = "1000000"; // gives starting money
-
+          
      } // end of overloaded constructor
 
 
