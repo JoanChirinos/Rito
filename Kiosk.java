@@ -65,16 +65,6 @@ public class Kiosk {
          if (choice == 1) {
               System.out.println("What would you like to search for?");
               search1 = Keyboard.readString();
-              // if (movie.search(search1)) {
-              //      System.out.println("Do you want to rent any of these?");
-              //      respStr = Keyboard.readString().toLowerCase();
-              //      if (respStr.equals("yes")) {
-              //           // this is not fully functional yet
-              //           // rent works for the top 5 movies only...
-              //           this.rent(movie);
-              //
-              //      }
-              // }
               this.home(movie, search1);
 
          }
@@ -238,17 +228,30 @@ public class Kiosk {
 
     //*******************checkout methods************************
 
-    // WIP
-    public void historyCSVRW() {
-         CSVRW history = new CSVRW("Numbers.csv");
-
+    public void listPrevRentals(ArrayList<String []> prevRentals) {
+         System.out.println("You have not returned the following:");
+         for (int i = 0; i < prevRentals.size(); i++) {
+              System.out.println(i + ". " + prevRentals.get(0)[i]);
+         }
     }
 
-    // WIP
-    public void listPrevRentals() {
-	// check previous rentals
-	// and print them in a vertical list
+    public ArrayList<String []> hasPrevRentals (String cardNum) {
+         // check previous rentals
+         ArrayList<String []> prevRentals = new ArrayList<String []>();
+
+         // CSV File Writing
+         CSVRW check = new CSVRW("Numbers.csv");
+         for (int i = 0; i < check.size() - 1; i++) {
+              if (check.get(i,0).equals(cardNum)) {
+                   prevRentals.add(check.get(i,3).split("|"));
+              }
+              if (prevRentals.size() > 0) {
+                   return prevRentals;
+              }
+         }
+         return prevRentals;
     }
+
 
     public void checkout() {
          // user checks out movies
@@ -258,12 +261,15 @@ public class Kiosk {
     }
 
     public void listOrders() {
-	// print current orders for movies
-	// in a vertical list
-     System.out.println("\n\n\n\n\n\nYour cart:");
-     for (int itemCount = 0; itemCount < cart.size(); itemCount++) {
-          System.out.println( (itemCount + 1) + ". " + cart.get(itemCount));
-     }
+         // print current orders for movies
+         // in a vertical list
+         System.out.println("\n\n\n\n\n\nYour cart:");
+         for (int itemCount = 0; itemCount < cart.size(); itemCount++) {
+              System.out.println( (itemCount + 1) + ". " + cart.get(itemCount));
+         }
+         if (hasPrevRentals(this.card.cardNum).size() > 1) {
+              listPrevRentals(hasPrevRentals(this.card.cardNum));
+         }
     }
 
     public void receipt() {
