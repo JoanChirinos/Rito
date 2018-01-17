@@ -179,15 +179,23 @@ public class DebitCard {
           }
      } // end of genMovie
 
-     protected String deduct (int amt) {
+     protected String deduct (String num, int amt) {
           // checks if the user has less money than the amount to be deducted
           if (Integer.parseInt(money) < amt) {
                return "Sorry, you don't have enough money."; // returns error message
           } else {
-               // if user has enough money, deduct the amount for transaction
-               money = Integer.toString(Integer.parseInt(money) - amt);
-               // return transaction message
-               return "Transaction successful, " + amt + "was deducted from your account. You now have $" + money + " left in your debit card.";
+
+               CSVRW check = new CSVRW("Numbers.csv");
+
+               for (int i = 0; i < check.size() - 1, i++) {
+                    if (check.get(i,2).equals(num)) {
+                         money = Integer.toString(Integer.parseInt(money) - amt);
+                         check.set(i, 2, money);
+                         check.write("Numbers.csv");
+                         // return transaction message
+                         return "Transaction successful, " + amt + "was deducted from your account. You now have $" + money + " left in your debit card.";
+                    }
+               }
           }
      } // end of deduct
 
