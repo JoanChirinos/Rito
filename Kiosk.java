@@ -233,6 +233,7 @@ public class Kiosk {
          for (int i = 0; i < prevRentals.size(); i++) {
               System.out.println(i + ". " + prevRentals.get(0)[i]);
          }
+
     }
 
     public ArrayList<String []> hasPrevRentals (String cardNum) {
@@ -243,6 +244,7 @@ public class Kiosk {
          CSVRW check = new CSVRW("Numbers.csv");
          for (int i = 0; i < check.size() - 1; i++) {
               if (check.get(i,0).equals(cardNum)) {
+                   System.out.println(check.get(i,3).split("|"));
                    prevRentals.add(check.get(i,3).split("|"));
               }
               if (prevRentals.size() > 0) {

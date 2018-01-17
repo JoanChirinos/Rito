@@ -52,7 +52,7 @@ public class DebitCard {
           cardNum = genNum(); // generates new card number and stores it
           cardPin = genPin(); // generates new pin number and stores it
           ePin = encrypt(cardPin); // generates encrypted pin and stores it
-          money = "1000000"; // gives starting money
+          money = "1000"; // gives starting money
 
           // CSV File Writing
           CSVRW check = new CSVRW("Numbers.csv");
@@ -73,7 +73,7 @@ public class DebitCard {
           cardNum = num; // sets card number to inputted number
           cardPin = pin; // sets pin number to inputted pin
           ePin = encrypt(pin); // encrypts and stores inputted pin number
-          money = "1000000"; // gives starting money
+          money = "1000"; // gives starting money
 
      } // end of overloaded constructor
 
