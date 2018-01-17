@@ -17,23 +17,14 @@ Command Line-Based Movie Rental Kiosk
 ------------------------------------------
 OBSTACLES OVERCOME
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* Found a way to access the top one hundredish movies from 2006 to 2017 by
-using a python program that was written to access data from IMDB.
+* Joan managed to access over 1000 of the top movies in the past 12 years and
+compile a list of their information by writing a Python program that pulled
+their names and details from IMDB
 * Figured out how to give user access to the rest of the movies in movies.csv through specific search terms by
 creating a local ArrayList<String> to store the movies that pertain to the search terms and add to it via a for loop.
-
-
-UNRESOLVED ISSUES
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* Could not implement Calendar and a fast forward method.
-* Some of the search options are not reliable and return the incorrect movie when the user provides input.
-* Unable to find a good place in our decisionMaking method in Kiosk.java to incorporate the moreInfo method from Movie.java.
-** Instance vars money in DebitCard.java always "refreshes" back to $1000, instead of the current balance of the specific card.
-=======
-* Joan managed to compile a list of over 1000 of the top movies from 2006 to
-2017 by writing a Python program that pulled information from IMDB with
-minimal user input. The program was, in a way, a one time use kind of program,
-so it is not included
+* Joan wrote CSVRW.java (Caret-Separated-Value Reader and Writer) and made it
+easier to store information within these CSVs
+==========================================
 
 UNRESOLVED ISSUES
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -42,13 +33,14 @@ UNRESOLVED ISSUES
 * Calendar was unable to be fully implemented due to time constraints. This
 means that the user doesn't pay extra to return a movie
 * There is no way for a user to return a movie yet
-
+==========================================
 
 COOL STUFF LEARNED
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * The Calendar class is not only able to return the current date and time,
 it can also manipulate the system time and date.
 * CSV files are really useful for storing Strings and other information that can be parsed.
+==========================================
 
 MID-DEVELOPMENT DESIGN CHANGES
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -57,28 +49,16 @@ MID-DEVELOPMENT DESIGN CHANGES
 We changed CreditCard.java to DebitCard.java to better reflect a user's balance stored onto a card.
 We changed Numbers.csv from only having card numbers and pins to also containing their balance and rentals they have not returned
 in order to better fulfil our goal of a working Kiosk.
-
-<<<<<<< HEAD
-
-LESSONS LEARNED
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-A program involving lots of conditionals and branching requires lots of debugging - emphasis on lots - due to the many possible situations.
-Limited time causes lots of "cuts" of ideas... (ex. Calendar, moreInfo, etc.)
-
-
-
-=======
-* Joan fixed the rent method to allow the user to rent any movie in our list.
-This was done so a user can rent a movie before searching just by knowing the
-name.
+==========================================
 
 LESSONS LEARNED
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
+* A program involving lots of conditionals and branching requires lots of debugging - emphasis on lots - due to the many possible situations.
+* Limited time causes lots of "cuts" of ideas...
 * We learned that communication is key when doing group work
 * We also learned that properly commenting your code as you write it is vital
 to other's understanding and your own
-
+==========================================
 
 ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
@@ -107,12 +87,11 @@ Johnny :: Implemented and added to Kiosk.java to have user interface and
 to use DebitCard.java and Movie.java.
 ==============================================================
 
-==============================================================
-
 2018-01-16 and 2018-01-17
 --------------------------------------------------------------
 Aaron & Johnny :: Further testing of Kiosk.java to debug decisionMaking in Kiosk.java.
-=======
+==============================================================
+
 2018-01-16
 --------------------------------------------------------------
 Aaron :: Touched up on CreditCard.java
