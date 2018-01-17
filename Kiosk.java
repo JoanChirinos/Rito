@@ -60,7 +60,7 @@ public class Kiosk {
          int respInt;
          int choice = 0;
          String search1 = lastSearch;
-         System.out.println("What would you like to do?\nYou can \n1. search\n2. rent\n3. view cart");
+         System.out.println("What would you like to do?\nYou can \n\n1. search\n2. rent\n3. view cart\n4. return\n");
          choice = Keyboard.readInt();
          // search choice
          if (choice == 1) {
@@ -81,6 +81,7 @@ public class Kiosk {
 
          // view cart
          else if (choice == 3) {
+
               if (cart.size() == 0) {
                    System.out.println("Nothing seems to be in your cart my dear...\n\n\n\n\n");
                    this.home(movie);
@@ -101,8 +102,32 @@ public class Kiosk {
               }
 
          } // end of view cart
+
+         else if (choice == 4) {
+              if (prevRentals(this.getcardNum()).length() > 0) {
+                   System.out.println("It seems you have some movies due...\n\n\n\n\n");
+                   listPrevRentals(prevRentals(this.getcardNum()));
+                   System.out.println("\n\n\n\n\nWould you like to return them?");
+                   System.out.println("1. yes");
+                   System.out.println("2. no");
+                   respInt = Keyboard.readInt();
+                   if (respInt == 1) {
+                        this.returnPrev();
+                        this.home(movie);
+                   }
+                   else if (respInt == 2) {
+                        System.out.println("That's not very nice! '^' ");
+                        this.home(movie);
+                   }
+              }
+              else {
+                   System.out.println("You have nothing to return buddy! Please continue browsing!\n\n\n\n\n");
+                   this.home(movie);
+              }
+
+         }
          else {
-              System.out.println("Please make a choice from 1-3\n\n\n\n\n");
+              System.out.println("Please make a choice from 1-4\n\n\n\n\n");
               this.home(movie);
          }
 
@@ -148,6 +173,22 @@ public class Kiosk {
               }
          }
     }
+
+    // user can return the movies that they have not returned yet
+    // afterwards, the movies they returned is removed from Numbers.csv
+    public void returnPrev() {
+         String prev = prevRentals(this.getcardNum());
+         CSVRW check = new CSVRW("Numbers.csv");
+         for (int i = 0; i < check.size() - 1; i++) {
+              if (check.get(i,3).equals(prev)) {
+                   check.set(i, 3, "_");
+                   check.write("Numbers.csv");
+                   System.out.println("You have successfully returned your previous rentals!\n\n\n\n\n");
+                   break;
+              }
+         }
+    }
+
 
     public String findMovie (Movie movie, String name, int index) {
          ArrayList<String> _movies = new ArrayList<String>();
@@ -230,14 +271,21 @@ public class Kiosk {
     //*******************checkout methods************************
 
     public void listPrevRentals(String prevRentals) {
+
+
          System.out.println("You have not returned the following:");
-         String [] pRents = prevRentals.split(",");
-         System.out.println(pRents[0]);
-         for (int i = 0; i < pRents.length; i++) {
-              if (i % 2 == 0) {
-                   System.out.println(i + 1 + ". " + pRents[i] + " due on " + pRents[i+1].substring(0,pRents[i+1].length() - 1));
-              }
+         String prev = prevRentals;
+         int index = prev.indexOf("|");
+         int count = 1;
+         while (index != -1) {
+              System.out.println(count + prev.substring(0, index));
+              prev = prevRentals.substring(index + 1);
+              index = prevRentals.indexOf("|");
          }
+
+
+
+
     }
 
     public String prevRentals (String cardNum) {
@@ -276,9 +324,6 @@ public class Kiosk {
          for (int itemCount = 0; itemCount < cart.size(); itemCount++) {
               System.out.println( (itemCount + 1) + ". " + cart.get(itemCount));
          }
-         if (prevRentals(this.getcardNum()).length() > 0) {
-              listPrevRentals(prevRentals(this.getcardNum()));
-         }
     }
 
     public void receipt() {
@@ -289,7 +334,7 @@ public class Kiosk {
      for (int itemCount = 0; itemCount < cart.size(); itemCount++) {
           System.out.println( (itemCount + 1) + ". " + cart.get(itemCount));
           numRentals++;
-          card.genMovie(card.cardNum, cart.get(itemCount), "January-17-2018");
+          card.genMovie(card.cardNum, cart.get(itemCount), " due on January-17-2018");
      }
      System.out.println(card.deduct(card.cardNum, price * numRentals));
      System.out.println("Have a nice day!");
@@ -306,30 +351,36 @@ public class Kiosk {
 
     }
     //***********************************************************
+    public void userCard() {
+         System.out.println("Do you have a DebitCard?");
+         System.out.println("\n1. yes");
+         System.out.println("2. no\n");
+         int resp = Keyboard.readInt();
+         if (resp == 2) {
+              this.generateCard();
+              System.out.println("\n\n\n\n\n\n");
+         }
+         else if (resp == 1) {
+              System.out.println("Please enter your DebitCard number: ");
+              String num = Keyboard.readString();
+              System.out.println("\nNow your pin: ");
+              String pin = Keyboard.readString();
+              if (this.isValidNum(num) && this.isValidPin(pin)) {
+                   System.out.println("success\n\n\n\n\n");
+                   card = new DebitCard(num, pin);
+              }
+              else {
+                   System.out.println("fail");
+                   System.out.println("Please enter a real card!");
+                   this.userCard();
+              }
+
+         }
+    }
+
     public void go(){
 	// start Kiosk
-     System.out.println("Do you have a DebitCard?");
-     System.out.println("1. yes");
-     System.out.println("2. no");
-     int resp = Keyboard.readInt();
-     if (resp == 2) {
-          this.generateCard();
-          System.out.println("\n\n\n\n\n\n");
-     }
-     else if (resp == 1) {
-          System.out.println("Please enter your DebitCard number: ");
-          String num = Keyboard.readString();
-          System.out.println("Now your pin: ");
-          String pin = Keyboard.readString();
-          if (this.isValidNum(num) && this.isValidPin(pin)) {
-               System.out.println("success\n\n\n\n\n");
-               card = new DebitCard(num, pin);
-          }
-          else {
-               System.out.println("fail");
-          }
-
-     }
+     this.userCard();
      Movie _movies = new Movie();
      this.home(_movies);
 
