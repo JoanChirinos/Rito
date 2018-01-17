@@ -97,7 +97,8 @@ public class Kiosk {
 	    
 	    // rent choice
 	    else if (choice == 2) {
-		System.out.println("Which movie would you like to rent?");
+		System.out.println("Please enter the NAME of the movie you'd" +
+				   " like to rent:");
 		String movietorent = Keyboard.readString();
 		this.rent(movietorent, movie);
 	    
