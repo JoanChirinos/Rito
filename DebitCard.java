@@ -140,7 +140,7 @@ public class DebitCard {
           } else {
                money = Integer.toString(Integer.parseInt(money) - amt);
                return "Transaction successful, " + amt + "was deducted from your account. You now have $" + money + " left in your debit card.";
-          } ;
+          }
      } // end of deduct
 
 
