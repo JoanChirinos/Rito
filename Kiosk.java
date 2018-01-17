@@ -45,7 +45,7 @@ public class Kiosk {
     // overloaded version of home that passes that lastSearched terms/movie
     public void home(Movie movie, String lastSearch) {
 	// view top 5 movies
-     System.out.println("Hello! Welcome to Rito's Rad Movies!\nPlease view our wicked collection of the past decade!");
+     // System.out.println("Hello! Welcome to Rito's Rad Movies!\nPlease view our wicked collection of the past decade!");
      movie.search(lastSearch);
      this.decisionMaking(movie, lastSearch);
     } // end of home
@@ -136,7 +136,7 @@ public class Kiosk {
                         movieName = movie._movienames.get(respInt - 1);
                    }
                    else {
-                        movieName = this.findMovie(movie, searchInfo);
+                        movieName = this.findMovie(movie, searchInfo, respInt);
                    }
                    System.out.println("So you would like to rent " + movieName + " ?");
                    System.out.println("1. yes");
@@ -145,7 +145,7 @@ public class Kiosk {
                    if (respInt2 == 1) {
                         cart.add(movieName);
                         System.out.println(movieName + " has been added to your cart.");
-                        System.out.println("\n\n\n\n\n\n");
+                        System.out.println("\n\n\n\n\n");
                         this.home(movie);
                    }
                    else {
@@ -157,11 +157,20 @@ public class Kiosk {
          }
     }
 
-    public String findMovie (Movie movie, String name) {
-         // for (int i = 0; i < movie._movienames.size(); i++) {
-         //
-         // }
-         return "XD";
+    public String findMovie (Movie movie, String name, int index) {
+         ArrayList<String> _movies = new ArrayList<String>();
+         for (int i = 0; i < movie._movieinfo.size(); i++) {
+              if (_movies.size() > 5) {
+                   break;
+              }
+              if ( (movie._movieinfo.get(i).indexOf(name)) != -1) {
+                   _movies.add(movie._movienames.get(i));
+              }
+         }
+         for (int i = 0; i < _movies.size(); i++) {
+              System.out.println(_movies.get(i));
+         }
+         return _movies.get(index - 1);
     }
 
     //***********************************************************
@@ -298,7 +307,7 @@ public class Kiosk {
           }
      }
      Movie _movies = new Movie();
-     this.home(_movies, "");
+     this.home(_movies);
 
     }
 
