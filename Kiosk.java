@@ -36,7 +36,7 @@ public class Kiosk {
     // from our collection of rad movies!
     public void home(Movie movie) {
 	// view top 5 movies
-     System.out.println("Hello! Welcome to Rito's Rad Movies!\nPlease view our wicked collection of the past decade!");
+     System.out.println("Hello! Welcome to Rito's Rad Movies!\nPlease view our wicked collection of the past decade!\nWe are having a sale where all of the rentals cost $3!!!");
      movie.search("");
      this.decisionMaking(movie, "");
     } // end of home
@@ -45,7 +45,6 @@ public class Kiosk {
     // overloaded version of home that passes that lastSearched terms/movie
     public void home(Movie movie, String lastSearch) {
 	// view top 5 movies
-     // System.out.println("Hello! Welcome to Rito's Rad Movies!\nPlease view our wicked collection of the past decade!");
      movie.search(lastSearch);
      this.decisionMaking(movie, lastSearch);
     } // end of home
@@ -145,7 +144,7 @@ public class Kiosk {
                    if (respInt2 == 1) {
                         cart.add(movieName);
                         System.out.println(movieName + " has been added to your cart.");
-                        System.out.println("\n\n\n\n\n");
+                        System.out.println("\n\n\n\n");
                         this.home(movie);
                    }
                    else {
@@ -266,11 +265,14 @@ public class Kiosk {
 
     public void receipt() {
 	// print out a receipt for the user
+     int numRentals = 0;
      System.out.println("Thank you for shopping with us number " + card.cardNum);
      System.out.println("You rented ");
      for (int itemCount = 0; itemCount < cart.size(); itemCount++) {
           System.out.println( (itemCount + 1) + ". " + cart.get(itemCount));
+          numRentals++;
      }
+     System.out.println(card.deduct(card.cardNum, 3 * numRentals));
      System.out.println("Have a nice day!");
 
     }
