@@ -38,7 +38,8 @@ public class Kiosk {
     // from our collection of rad movies!
     public void home(Movie movie) {
 	// view top 5 movies
-     System.out.println("Hello! Welcome to Rito's Rad Movies!\nPlease view our wicked collection of the past decade!\nWe are having a sale where all of the rentals cost $3!!!");
+     System.out.println("Hello! Welcome to Rito's Rad Movies!\nPlease view our wicked collection of the past decade!");
+     System.out.println("We are having a sale where all of the rentals cost $3!!!");
      movie.search("");
      this.decisionMaking(movie, "");
     } // end of home
@@ -228,30 +229,36 @@ public class Kiosk {
 
     //*******************checkout methods************************
 
-    public void listPrevRentals(ArrayList<String []> prevRentals) {
+    public void listPrevRentals(String prevRentals) {
          System.out.println("You have not returned the following:");
-         for (int i = 0; i < prevRentals.size(); i++) {
-              System.out.println(i + ". " + prevRentals.get(0)[i]);
+         String [] pRents = prevRentals.split(",");
+         System.out.println(pRents[0]);
+         for (int i = 0; i < pRents.length; i++) {
+              if (i % 2 == 0) {
+                   System.out.println(i + 1 + ". " + pRents[i] + " due on " + pRents[i+1].substring(0,pRents[i+1].length() - 1));
+              }
          }
-
     }
 
-    public ArrayList<String []> hasPrevRentals (String cardNum) {
+    public String prevRentals (String cardNum) {
          // check previous rentals
-         ArrayList<String []> prevRentals = new ArrayList<String []>();
-
+         String ret;
          // CSV File Writing
+
          CSVRW check = new CSVRW("Numbers.csv");
          for (int i = 0; i < check.size() - 1; i++) {
               if (check.get(i,0).equals(cardNum)) {
-                   System.out.println(check.get(i,3).split("|")[0]);
-                   prevRentals.add(check.get(i,3).split("|"));
+                   ret = check.get(i,3);
+                   return ret;
               }
-              if (prevRentals.size() > 0) {
-                   return prevRentals;
-              }
+
          }
-         return prevRentals;
+         return "";
+    }
+
+    // accessor method to get current card's cardNum
+    public String getcardNum () {
+         return card.cardNum;
     }
 
 
@@ -269,8 +276,8 @@ public class Kiosk {
          for (int itemCount = 0; itemCount < cart.size(); itemCount++) {
               System.out.println( (itemCount + 1) + ". " + cart.get(itemCount));
          }
-         if (hasPrevRentals(this.card.cardNum).size() > 1) {
-              listPrevRentals(hasPrevRentals(this.card.cardNum));
+         if (prevRentals(this.getcardNum()).length() > 0) {
+              listPrevRentals(prevRentals(this.getcardNum()));
          }
     }
 
@@ -282,7 +289,7 @@ public class Kiosk {
      for (int itemCount = 0; itemCount < cart.size(); itemCount++) {
           System.out.println( (itemCount + 1) + ". " + cart.get(itemCount));
           numRentals++;
-          card.genMovie(card.cardNum, cart.get(itemCount), "January 17, 2018");
+          card.genMovie(card.cardNum, cart.get(itemCount), "January-17-2018");
      }
      System.out.println(card.deduct(card.cardNum, price * numRentals));
      System.out.println("Have a nice day!");
@@ -316,10 +323,12 @@ public class Kiosk {
           String pin = Keyboard.readString();
           if (this.isValidNum(num) && this.isValidPin(pin)) {
                System.out.println("success\n\n\n\n\n");
+               card = new DebitCard(num, pin);
           }
           else {
                System.out.println("fail");
           }
+
      }
      Movie _movies = new Movie();
      this.home(_movies);
