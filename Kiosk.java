@@ -163,11 +163,10 @@ public class Kiosk {
               if (_movies.size() > 5) {
                    break;
               }
-              for (int c = 0; c < 5; c++) {
-                   if ( (movie._movieinfo.get(i).indexOf(name)) != -1) {
-                        _movies.add(movie._movienames.get(i));
-                   }
+              if ( (movie._movieinfo.get(i).indexOf(name)) != -1) {
+                   _movies.add(movie._movienames.get(i));
               }
+
          }
          for (int i = 0; i < _movies.size(); i++) {
               System.out.println(_movies.get(i));
