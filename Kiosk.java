@@ -21,10 +21,12 @@ public class Kiosk {
     // inst vars
     private DebitCard card;
     private ArrayList<String> cart;
+    private int price;
 
     // constructor
     public Kiosk() {
          cart = new ArrayList<String>();
+         price = 3;
     }
 
 
@@ -251,6 +253,7 @@ public class Kiosk {
     public void checkout() {
          // user checks out movies
          this.receipt();
+         // cart is now emptied
          cart = new ArrayList<String>();
     }
 
@@ -271,8 +274,9 @@ public class Kiosk {
      for (int itemCount = 0; itemCount < cart.size(); itemCount++) {
           System.out.println( (itemCount + 1) + ". " + cart.get(itemCount));
           numRentals++;
+          card.genMovie(card.cardNum, cart.get(itemCount), "January 17, 2018");
      }
-     System.out.println(card.deduct(card.cardNum, 3 * numRentals));
+     System.out.println(card.deduct(card.cardNum, price * numRentals));
      System.out.println("Have a nice day!");
 
     }
