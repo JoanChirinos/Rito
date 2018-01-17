@@ -12,6 +12,7 @@ Aaron Li, Johnny Wong, Joan Chirinos
 
 import jutils.*;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 /**********************************************************************
  Constructors:
@@ -30,8 +31,7 @@ import java.util.ArrayList;
                                                           the user exits or checksout a movie
  * void rent(Movie movie, String searchInfo) -> user adds a movie to the Kiosk's cart
  * void returnPrev() -> user returns their previously rented movies
- * String findMovie (Movie movie, String name, int index) -> returns the name of a movie in our movies.csv dependent on
-                                                             inputted search info
+ * String findMovie (Movie movie, String name, int index) -> finds movie based on passed String and user inputted int
  * boolean isValidNum (String input) -> returns true or false if inputted DebitCard number is stored in our Numbers.csv
  * boolean isValidPin (String input) -> returns true or false if inputted DebitCard pin is stored in our Numbers.csv
  * void generateCard() -> if the user would like, a new DebitCard card can be generated and added to Numbers.csv
@@ -67,12 +67,17 @@ public class Kiosk {
     // the user will often be referred back to our home page during their time renting
     // from our collection of rad movies!
     public void home(Movie movie) {
-	// view top 5 movies
-     System.out.println("Hello! Welcome to Rito's Rad Movies!\nPlease view our wicked collection of the past decade!");
-     System.out.println("We are having a sale where all of the rentals cost $" + price + "!!!!\n");
-     movie.search("");
-     // begin loop of decisionMaking
-     this.decisionMaking(movie, "");
+         // view top 5 movies
+
+         System.out.println("Hello! Welcome to Rito's Rad Movies!\nPlease view our wicked collection of the past decade!\nWe are having a sale where all of the rentals cost $3!!!");
+         movie.search("");
+         this.decisionMaking(movie, "");
+         System.out.println("Hello! Welcome to Rito's Rad Movies!\nPlease view our wicked collection of the past decade!");
+         System.out.println("We are having a sale where all of the rentals cost $" + price + "!!!!\n");
+         movie.search("");
+         // begin loop of decisionMaking
+         this.decisionMaking(movie, "");
+
     } // end of home
 
 
@@ -172,6 +177,7 @@ public class Kiosk {
          }
 
 
+
     } // end of decisionMaking
 
 
@@ -179,40 +185,62 @@ public class Kiosk {
     // uses error handling in case the user does not choose a number from 1-5
     // if the user does not decide to rent any, user moves back to home page
     public void rent(Movie movie, String searchInfo) {
-         String movieName;
-         boolean didNotChoose = true;
-         while (didNotChoose) {
-              System.out.println("Which movie would you like to rent?");
-              int respInt = Keyboard.readInt();
-              if (respInt < 1 || respInt > 5) {
-                   System.out.println("Sorry, but please pick a movie number from 1 to 5...");
-              }
-              else {
-                   didNotChoose = false;
-                   if (searchInfo.equals("")) {
-                        movieName = movie._movienames.get(respInt - 1);
-                   }
-                   else {
-                        movieName = this.findMovie(movie, searchInfo, respInt);
-                   }
-                   System.out.println("So you would like to rent " + movieName + " ?");
-                   System.out.println("1. yes");
-                   System.out.println("2. no");
-                   int respInt2 = Keyboard.readInt();
-                   if (respInt2 == 1) {
-                        cart.add(movieName);
-                        System.out.println(movieName + " has been added to your cart.");
-                        System.out.println("\n\n\n\n");
-                        this.home(movie);
-                   }
-                   else {
-                        System.out.println("Bummer...\n\n\n\n");
-                        this.home(movie);
 
-                   }
-              }
-         }
-    }
+	// if (movie.search(movieName)) {
+	//     System.out.print("So you would like to rent " + movieName +
+	// 		     "? (y/n)\t");
+	//     String yesno = Keyboard.readString().toLowerCase();
+	//     if (yesno.equals("n")) {
+	// 	System.out.println("Bummer...");
+	// 	this.home(movie);
+	//     }
+	//     else if (yesno.equals("y")) {
+	// 	cart.add(movieName);
+	// 	System.out.println(movieName + " has been added to your cart");
+	// 	System.out.println("\n\n\n\n");
+	// 	this.home(movie);
+	//     }
+	// }
+	// else {
+	//     System.out.println("Please type the name exactly as it appears" +
+	// 		       " when you search for it!");
+	//     this.home(movie);
+	// }
+     String movieName;
+	boolean didNotChoose = true;
+	while (didNotChoose) {
+	    System.out.println("Which movie would you like to rent?");
+	    int respInt = Keyboard.readInt();
+	    if (respInt < 1 || respInt > 5) {
+		System.out.println("Sorry, but please pick a movie number from 1 to 5...");
+	    }
+	    else {
+		didNotChoose = false;
+		if (searchInfo.equals("")) {
+		    movieName = movie._movienames.get(respInt - 1);
+		}
+		else {
+		    movieName = this.findMovie(movie, searchInfo, respInt);
+		}
+		System.out.println("So you would like to rent " + movieName + " ?");
+		System.out.println("1. yes");
+		System.out.println("2. no");
+		int respInt2 = Keyboard.readInt();
+		if (respInt2 == 1) {
+		    cart.add(movieName);
+		    System.out.println(movieName + " has been added to your cart.");
+		    System.out.println("\n\n\n\n");
+		    this.home(movie);
+		}
+		else {
+		    System.out.println("Bummer...\n\n\n\n");
+		    this.home(movie);
+
+		}
+	    }
+	}
+
+    }//end rent
 
     // user can return the movies that they have not returned yet
     // afterwards, the movies they returned is removed from Numbers.csv
@@ -229,7 +257,6 @@ public class Kiosk {
          }
     }
 
-    // searches for a movie in _movienames using passed String name
     public String findMovie (Movie movie, String name, int index) {
          ArrayList<String> _movies = new ArrayList<String>();
          for (int i = 0; i < movie._movieinfo.size(); i++) {
@@ -275,16 +302,28 @@ public class Kiosk {
                    return false;
               }
          }
-
          CSVRW check = new CSVRW("Numbers.csv");
          if (input.length() == 4) {
               long temp = (Long.valueOf(input) + 1029) * 384756;
               for (int i = 0; i <= check.size() - 1; i++) {
-                   if (Long.valueOf(check.get(i, 1)) == temp) {
-                        return true;
+                   try {
+                        if (Long.valueOf(check.get(i, 1)) == temp) {
+                             return true;
+                        }
                    }
-              } return false;
-         } return false;
+                   catch (NumberFormatException e) {
+
+                   }
+                   catch (Exception e) {
+                        System.out.println("Something went wrong. We will try to" +
+                        " fix it, I promise");
+                        return false;
+                   }
+              }
+
+              return false;
+         }
+         return false;
     } // end of isValidPin()
 
 
@@ -311,6 +350,7 @@ public class Kiosk {
 
     // prints out a vertical list
     // that contains movies yet to be returned, if any
+
     public void listPrevRentals(String prevRentals) {
 
          int numOwed = countOfChar(prevRentals, "|");
@@ -329,6 +369,10 @@ public class Kiosk {
          }
     }
 
+
+
+
+
     // returns count of a Char present in a String
     public int countOfChar (String str, String search) {
          int count = 0;
@@ -342,6 +386,7 @@ public class Kiosk {
     }
 
     // returns the previously rented movies associated with inputted cardNum
+
     public String prevRentals (String cardNum) {
          // check previous rentals
          String ret;
@@ -361,14 +406,15 @@ public class Kiosk {
     // accessor method to get current card's cardNum
     public String getcardNum () {
          return card.cardNum;
+
     }
 
     // bills the card and prints out a receipt
     public void checkout() {
-         // user checks out movies
-         this.receipt();
-         // cart is now emptied
-         cart = new ArrayList<String>();
+	// user checks out movies
+	this.receipt();
+	// cart is now emptied
+	cart = new ArrayList<String>();
     }
 
     // print current orders for movies
@@ -383,16 +429,16 @@ public class Kiosk {
     // print out a receipt containing the movies rented by the user and their cardNum
     public void receipt() {
 	// print out a receipt for the user
-     int numRentals = 0;
-     System.out.println("Thank you for shopping with us number " + this.getcardNum());
-     System.out.println("You rented ");
-     for (int itemCount = 0; itemCount < cart.size(); itemCount++) {
-          System.out.println( (itemCount + 1) + ". " + cart.get(itemCount));
-          numRentals++;
-          card.genMovie(this.getcardNum(), cart.get(itemCount), " due on January-17-2018");
-     }
-     System.out.println(card.deduct(this.getcardNum(), price * numRentals));
-     System.out.println("Have a nice day!");
+	int numRentals = 0;
+	System.out.println("Thank you for shopping with us number " + card.cardNum);
+	System.out.println("You rented ");
+	for (int itemCount = 0; itemCount < cart.size(); itemCount++) {
+	    System.out.println( (itemCount + 1) + ". " + cart.get(itemCount));
+	    numRentals++;
+	    card.genMovie(card.cardNum, cart.get(itemCount), this.movieDue() + "");
+	}
+	System.out.println(card.deduct(card.cardNum, price * numRentals));
+	System.out.println("Have a nice day!\n\n");
 
     }
 
@@ -400,10 +446,11 @@ public class Kiosk {
 
     //************************Calendar methods*******************
     public void fastForward(){
-         // <UNABLE TO COMPLETE>
+         // <unable to complete as envisioned>
     }
-    public void movieDue(){
-         // <UNABLE TO COMPLETE>
+    public String movieDue(){
+         // <unable to complete as envisioned>
+         return " due on January 17, 2018";
     }
     //***********************************************************
 
@@ -441,7 +488,6 @@ public class Kiosk {
      this.userCard();
      Movie _movies = new Movie();
      this.home(_movies);
-
     }
     //***********************************************************
 

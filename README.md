@@ -13,5 +13,3 @@
   * Enter your credit card information or get a new credit card
   * Search for a movie using key terms, genre, release year, etc.
   * Rent the movie you want
-  * Later, return the movies you have out (you may be charged a late fee if you don't return it on time)
-
