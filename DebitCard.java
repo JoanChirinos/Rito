@@ -187,7 +187,7 @@ public class DebitCard {
 
                CSVRW check = new CSVRW("Numbers.csv");
 
-               for (int i = 0; i < check.size() - 1, i++) {
+               for (int i = 0; i < check.size() - 1; i++) {
                     if (check.get(i,2).equals(num)) {
                          money = Integer.toString(Integer.parseInt(money) - amt);
                          check.set(i, 2, money);
