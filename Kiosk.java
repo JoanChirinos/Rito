@@ -19,7 +19,7 @@ import java.util.ArrayList;
 
 public class Kiosk {
     // inst vars
-    private CreditCard card;
+    private DebitCard card;
     private ArrayList<String> cart;
 
     // constructor
@@ -139,7 +139,7 @@ public class Kiosk {
 
     //***********************************************************
 
-    //*******************CreditCard methods************************
+    //*******************DebitCard methods************************
 
     public boolean isValidNum (String input) {
          String nums = "0123456789";
@@ -183,13 +183,13 @@ public class Kiosk {
 
     public void generateCard () {
          int resp;
-         System.out.println("Would you like to generate a CreditCard?");
+         System.out.println("Would you like to generate a DebitCard?");
          System.out.println("1. yes");
          System.out.println("2. no");
          resp = Keyboard.readInt();
          if (resp == 1) {
               System.out.println("Great!");
-              card = new CreditCard();
+              card = new DebitCard();
               System.out.println("This is your card number: " + card.cardNum);
               System.out.println("This is your pin number: " + card.cardPin);
               System.out.println("Remember! Don't lose this information!");
@@ -250,7 +250,7 @@ public class Kiosk {
     //***********************************************************
     public void go(){
 	// start Kiosk
-     System.out.println("Do you have a CreditCard?");
+     System.out.println("Do you have a DebitCard?");
      System.out.println("1. yes");
      System.out.println("2. no");
      int resp = Keyboard.readInt();
@@ -259,7 +259,7 @@ public class Kiosk {
           System.out.println("\n\n\n\n\n\n");
      }
      else if (resp == 1) {
-          System.out.println("Please enter your CreditCard number: ");
+          System.out.println("Please enter your DebitCard number: ");
           String num = Keyboard.readString();
           System.out.println("Now your pin: ");
           String pin = Keyboard.readString();
