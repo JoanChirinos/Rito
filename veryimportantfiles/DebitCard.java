@@ -33,7 +33,7 @@ in Numbers.csv
 import jutils.*;
 import java.util.ArrayList;
 
-public class CreditCard {
+public class DebitCard {
 
      // Instance Variables
 
@@ -44,7 +44,7 @@ public class CreditCard {
 
      // Constructors
 
-     public CreditCard () {
+     public DebitCard () {
           cardNum = genNum();
           cardPin = genPin();
           ePin = encrypt(cardPin);
@@ -58,7 +58,7 @@ public class CreditCard {
           check.write("Numbers.csv");
      }
 
-     public CreditCard (String num, String pin) {
+     public DebitCard (String num, String pin) {
           cardNum = num;
           cardPin = pin;
           ePin = encrypt(pin);
@@ -144,4 +144,4 @@ public class CreditCard {
      } // end of deduct
 
 
-} // end of CreditCard class
+} // end of DebitCard class
