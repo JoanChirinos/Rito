@@ -52,7 +52,7 @@ MID-DEVELOPMENT DESIGN CHANGES
 We changed ___ to ___ bc...
 
 We changed the rent method in Kiosk.java from being able to rent from all of the movies to just the top 5
-because we did not have the time to implement such feature involving sort as of yet. We plan on enabling 
+because we did not have the time to implement such feature involving sort as of yet. We plan on enabling
 this feature soon.
 
 LESSONS LEARNED

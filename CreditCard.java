@@ -41,7 +41,6 @@ public class CreditCard {
      protected String cardPin; // stores card pin
      protected String ePin; // stores encrypted pin
      protected String money;
-     protected ArrayList<String> movies; // stores names of movies
 
      // Constructors
 
@@ -49,10 +48,12 @@ public class CreditCard {
           cardNum = genNum();
           cardPin = genPin();
           ePin = encrypt(cardPin);
+          money = "100000000";
 
           CSVRW check = new CSVRW("Numbers.csv");
           check.set(check.size() - 1, 0, cardNum);
           check.set(check.size() - 1, 1, ePin);
+          check.set(check.size() - 1, 2, money);
           check.addRow();
           check.write("Numbers.csv");
      }
@@ -61,6 +62,7 @@ public class CreditCard {
           cardNum = num;
           cardPin = pin;
           ePin = encrypt(pin);
+          money = "100000000";
      }
 
 
@@ -126,13 +128,20 @@ public class CreditCard {
           String out = name + "," + date + "|";
 
           CSVRW check = new CSVRW("Numbers.csv");
+          check.set(check.size() - 1, 3, out);
+          check.write("Numbers.csv");
 
-          for (int i = 0; i < check.size() - 1; i++) {
-
-          }
-          return "yes";
+          return out;
      } // end of genMovie
 
+     protected String deduct (int amt) {
+          if (Integer.parseInt(money) < amt) {
+               return "Sorry, you don't have enough money.";
+          } else {
+               money = Integer.toString(Integer.parseInt(money) - amt);
+               return "Transaction successful, " + amt + "was deducted from your account. You now have $" + money + " left in your debit card.";
+          } ;
+     } // end of deduct
 
 
 } // end of CreditCard class
