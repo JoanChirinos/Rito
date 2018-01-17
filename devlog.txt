@@ -6,6 +6,11 @@ pd 8
 ---------------------
 Command Line-Based Movie Rental Kiosk
 
+===== TO DO LIST ===== 
+1) Update DEVLOG
+2) Update README (credit cards to debit cards)
+3) Implement Calendar in DebitCard as well as make a driver class to test Calendar and kiosk return function
+============================================================================================================
 
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
